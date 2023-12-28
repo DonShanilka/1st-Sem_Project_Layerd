@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Dao.Custom.SupplierDao;
+import lk.ijse.semisterfinal.Dao.Custom.impl.SupplierDaoImpl;
 import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.Tm.SupplierTm;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
@@ -59,6 +61,8 @@ public class AddSupplierControlller  {
     public TextField txtItemCode;
     public TextField txtSupNic;
 
+    SupplierDao supplierDao = new SupplierDaoImpl();
+
     String[] ca = { "Electrical", "Furniture", "Toys", "Exercise equipment", "Office equipment", "Other"};
 
     public void initialize() throws SQLException {
@@ -74,6 +78,30 @@ public class AddSupplierControlller  {
         supplierAddTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
             setData(newValue);
         });
+    }
+
+    private void clearField() {
+        txtSupNic.setText("");
+        txtSupName.setText("");
+        txtItemDis.setText("");
+        txtSupQty.setText("");
+        txtSupMobile.setText("");
+
+    }
+
+    private void setCellValueFactory() {
+        tmSupId.setCellValueFactory(new PropertyValueFactory<>("supId"));
+        tmSupName.setCellValueFactory(new PropertyValueFactory<>("supName"));
+        tmMobile.setCellValueFactory(new PropertyValueFactory<>("mobile"));
+        tmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tmcompName.setCellValueFactory(new PropertyValueFactory<>("coName"));
+        tmCompAddress.setCellValueFactory(new PropertyValueFactory<>("coAddress"));
+        tmItemCode.setCellValueFactory(new PropertyValueFactory<>("itemcode"));
+        tmItemDis.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        tmQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        tmBacthNum.setCellValueFactory(new PropertyValueFactory<>("bNum"));
+        tmCatagory.setCellValueFactory(new PropertyValueFactory<>("catagory"));
+
     }
 
     private void setData(SupplierTm row) {
@@ -103,41 +131,38 @@ public class AddSupplierControlller  {
             String bNum = txtBnuM.getText();
             String catagory = itemCatagoryBox.getValue();
 
-            var dto = new SupplierDTO(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory);
-
             try {
-                boolean addSup = SupplierModel.addSuppliers(dto);
+                SupplierDTO dto = new SupplierDTO(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory);
+                boolean addSup = supplierDao.addSuppliers(dto);
+
                 if (addSup) {
+                    supplierAddTable.getItems().add(new SupplierTm(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory));
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier Added").show();
                     loadAllSupplier();
                     clearField();
                 }
+
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             }
         }
 
 
-    private void clearField() {
-        txtSupNic.setText("");
-        txtSupName.setText("");
-        txtItemDis.setText("");
-        txtSupQty.setText("");
-        txtSupMobile.setText("");
-
-    }
-
     public void deleteSupplierOnAction(ActionEvent event) {
         String id = txtSupNic.getText();
 
         try {
-            boolean isDeleted = SupplierModel.deleteSupplier(id);
+            boolean isDeleted = supplierDao.deleteSupplier(id);
             if(isDeleted) {
+                supplierAddTable.getSelectionModel().clearSelection();
+
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier has deleted!").show();
                 loadAllSupplier();
             } else {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier not deleted!").show();
             }
+            supplierAddTable.getItems().remove(supplierAddTable.getSelectionModel().getSelectedItem());
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
@@ -157,79 +182,40 @@ public class AddSupplierControlller  {
         String bNum = txtBnuM.getText();
         String catagory = itemCatagoryBox.getValue();
 
-        var dto = new SupplierDTO(supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory,supId);
-
         try {
-            boolean updateSup = SupplierModel.updateSupplier(dto);
+            SupplierDTO dto = new SupplierDTO(supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory,supId);
+            boolean updateSup = supplierDao.updateSupplier(dto);
+
             if (updateSup) {
+                supplierAddTable.getItems().add(new SupplierTm(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory));
+
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier Update").show();
                 loadAllSupplier();
                 clearField();
             }
+
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
-
-        /*Stage stage = new Stage();
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/UpdateSupplier.fxml"))));
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                loadAllSupplier();
-            }
-        });
-        stage.centerOnScreen();
-        stage.show();*/
-    }
-
-    private void setCellValueFactory() {
-        tmSupId.setCellValueFactory(new PropertyValueFactory<>("supId"));
-        tmSupName.setCellValueFactory(new PropertyValueFactory<>("supName"));
-        tmMobile.setCellValueFactory(new PropertyValueFactory<>("mobile"));
-        tmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        tmcompName.setCellValueFactory(new PropertyValueFactory<>("coName"));
-        tmCompAddress.setCellValueFactory(new PropertyValueFactory<>("coAddress"));
-        tmItemCode.setCellValueFactory(new PropertyValueFactory<>("itemcode"));
-        tmItemDis.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-        tmQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        tmBacthNum.setCellValueFactory(new PropertyValueFactory<>("bNum"));
-        tmCatagory.setCellValueFactory(new PropertyValueFactory<>("catagory"));
 
     }
 
     private void loadAllSupplier() {
 
-        ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
-
+        supplierAddTable.getItems().clear();
         try {
-            ArrayList<SupplierDTO> dtoList = SupplierModel.getAllSupplier();
-
-            for (SupplierDTO dto : dtoList) {
-                obList.add(
-                        new SupplierTm(
-                                dto.getSupNic(),
-                                dto.getSupName(),
-                                dto.getMobile(),
-                                dto.getEmail(),
-                                dto.getCoName(),
-                                dto.getCoAddress(),
-                                dto.getItemcode(),
-                                dto.getItemName(),
-                                dto.getQty(),
-                                dto.getBNum(),
-                                dto.getCatagory()
-
-                        )
-                );
+            ArrayList <SupplierDTO> allSup = supplierDao.getAllSupplier();
+            for (SupplierDTO i : allSup){
+                supplierAddTable.getItems().add(new SupplierTm(i.getSupNic(), i.getSupName(), i.getMobile(),i.getEmail(),i.getCoName(),i.getCoAddress(),i.getItemcode(),i.getItemName(),i.getQty(),i.getBNum(),i.getCatagory()));
             }
 
-            supplierAddTable.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void totalSupplier() throws SQLException {
+        public void totalSupplier() throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "SELECT COUNT(supplier_id) FROM supplier";

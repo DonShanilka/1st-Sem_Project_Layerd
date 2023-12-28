@@ -2,6 +2,7 @@ package lk.ijse.semisterfinal.controller;
 
 import com.google.zxing.WriterException;
 import com.jfoenix.controls.JFXButton;
+import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,6 +19,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
+import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
+import lk.ijse.semisterfinal.Dao.Custom.impl.CustomerDaoImpl;
+import lk.ijse.semisterfinal.Dao.Custom.impl.ItemDaoImpl;
+import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.Tm.ItemTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.ItemDTO;
@@ -70,6 +76,8 @@ public class AddItemController implements Initializable {
 
     private String[] cata = {"Electrical", "Furniture", "Toys", "Exercise equipment", "Office equipment", "Other"};
 
+    ItemDao itemDao = new ItemDaoImpl();
+
     public void initialize() throws SQLException {
         totalItem();
         setCellValueFactory();
@@ -106,8 +114,18 @@ public class AddItemController implements Initializable {
 
     }
 
-    public void AddItemOnAction(ActionEvent event) {
-        validateCustomer();
+    private void setCellValueFactory() {
+        tmItemCode.setCellValueFactory(new PropertyValueFactory<>("ItemCode"));
+        tmItemDetails.setCellValueFactory(new PropertyValueFactory<>("itemDetails"));
+        tmItemPrice.setCellValueFactory(new PropertyValueFactory<>("ItemPrice"));
+        tmSupplierId.setCellValueFactory(new PropertyValueFactory<>("SupplierId"));
+        tmWarranty.setCellValueFactory(new PropertyValueFactory<>("WarrantyPeriod"));
+        tmQty.setCellValueFactory(new PropertyValueFactory<>("ItemQty"));
+        tmCatogory.setCellValueFactory(new PropertyValueFactory<>("cato"));
+
+    }
+
+    public void AddItemOnAction(ActionEvent event) throws SQLException {
 
         String ItemCode = txtItemCode.getText();
         String ItemName = txtitemDetails.getText();
@@ -117,10 +135,14 @@ public class AddItemController implements Initializable {
         int qty  = Integer.parseInt(txtQty.getText());
         String cat = itemCatagory.getValue();
 
-        var dto = new ItemDTO(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat);
-
         try {
-            boolean isaddite = ItemModel.addItem(dto);
+            /*if (!validateCustomer()){
+                return;
+            }*/
+
+            ItemDTO dto = new ItemDTO(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat);
+            boolean isaddite = itemDao.addItem(dto);
+
             if (isaddite) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
                 loadAllItem();
@@ -128,6 +150,9 @@ public class AddItemController implements Initializable {
                 itemSerachOnAction();
                 totalItem();
             }
+            ItemTm.getItems().add(new ItemTm(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat));
+
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
@@ -138,7 +163,7 @@ public class AddItemController implements Initializable {
         ObservableList<ItemTm> obList = FXCollections.observableArrayList();
 
         try {
-            ArrayList<ItemDTO> dtoList = ItemModel.getAllItem();
+            ArrayList<ItemDTO> dtoList = itemDao.getAllItem();
 
             for (ItemDTO dto : dtoList) {
                 obList.add(
@@ -160,38 +185,7 @@ public class AddItemController implements Initializable {
         }
     }
 
-    /*private void loadAllSupId() {
-        ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
 
-        try {
-            ArrayList<SupplierDTO> dtoList = SupplierModel.getAllSupplier();
-
-            for (SupplierDTO dto : dtoList) {
-                obList.add(
-                        new SupplierTm(
-                                dto.getSupId(),
-                                dto.getSupName(),
-                                dto.getSupItemName(),
-                                dto.getSupMobile(),
-                                dto.getSupqty()
-                        ));
-            }
-            SupplierTm.
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
-
-    private void setCellValueFactory() {
-        tmItemCode.setCellValueFactory(new PropertyValueFactory<>("ItemCode"));
-        tmItemDetails.setCellValueFactory(new PropertyValueFactory<>("itemDetails"));
-        tmItemPrice.setCellValueFactory(new PropertyValueFactory<>("ItemPrice"));
-        tmSupplierId.setCellValueFactory(new PropertyValueFactory<>("SupplierId"));
-        tmWarranty.setCellValueFactory(new PropertyValueFactory<>("WarrantyPeriod"));
-        tmQty.setCellValueFactory(new PropertyValueFactory<>("ItemQty"));
-        tmCatogory.setCellValueFactory(new PropertyValueFactory<>("cato"));
-
-    }
 
     public void UpdateOnAction(ActionEvent event) throws IOException {
         String id = txtItemCode.getText();
@@ -206,14 +200,17 @@ public class AddItemController implements Initializable {
             /*if (!validateEmployee()){
                 return;
             }*/
-            var dto = new ItemDTO(id,name,price,supid,warranty,Qty,cat);
-            boolean isUpdate = ItemModel.updateItem(dto);
+            ItemDTO dto = new ItemDTO(id,name,price,supid,warranty,Qty,cat);
+            boolean isUpdate = itemDao.updateItem(dto);
 
             if (isUpdate){
+                ItemTm.getSelectionModel().clearSelection();
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee is updated").show();
                 loadAllItem();
                 clearField();
             }
+            ItemTm.getItems().addAll(new ItemTm(id, name, price, supid, warranty, Qty, cat));
+
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
@@ -223,14 +220,19 @@ public class AddItemController implements Initializable {
         String id = txtItemCode.getText();
 
         try {
-            boolean isDeleted = ItemModel.deleteItem(id);
+            boolean isDeleted = itemDao.deleteItem(id);
+
             if(isDeleted) {
+                ItemTm.getSelectionModel().clearSelection();
+
                 new Alert(Alert.AlertType.CONFIRMATION, "Item has deleted!").show();
                 loadAllItem();
                 totalItem();
             } else {
                 new Alert(Alert.AlertType.CONFIRMATION, "Item not deleted!").show();
             }
+            ItemTm.getItems().remove(ItemTm.getSelectionModel().getSelectedItem());
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
@@ -322,7 +324,7 @@ public void loadAllSupplier() {
 
     private boolean validateCustomer() {
         boolean isValidate = true;
-        boolean id = Pattern.matches("[A-Za-z]{0,}",txtitemDetails.getText());
+        boolean id = Pattern.matches("[A-Za-z]{0,}",txtItemCode.getText());
         if (!id){
             showErrorNotification("Invalid id", "The id you entered is invalid");
             isValidate = false;

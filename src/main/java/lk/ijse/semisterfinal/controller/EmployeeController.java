@@ -195,13 +195,17 @@ public class EmployeeController implements Initializable {
         String id = txtemployeeId.getText();
 
         try {
-            boolean isDeleted = AddEmployeeModel.deleteEmployee(id);
+            boolean isDeleted = employeeDao.deleteEmployee(id);
             if(isDeleted) {
+                EmployeeTm.getSelectionModel().clearSelection();
+
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier has deleted!").show();
                 loadAllEmployee();
             } else {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier not deleted!").show();
             }
+            EmployeeTm.getItems().remove(EmployeeTm.getSelectionModel().getSelectedItem());
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }

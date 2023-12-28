@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="557.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.semisterfinal.controller.AddItemController">
+   <children>
+      <Pane fx:id="root" prefHeight="766.0" prefWidth="1171.0" style="-fx-background-color: white;">
+         <children>
+            <Pane layoutX="14.0" layoutY="26.0" prefHeight="694.0" prefWidth="1137.0" style="-fx-background-color: #e6e6ff; -fx-background-radius: 20;">
+               <children>
+      
+                  <JFXButton buttonType="RAISED" layoutX="860.0" layoutY="266.0" onAction="#deleteOnAction" prefHeight="36.0" prefWidth="86.0" style="-fx-background-color: orange;" text="Delete" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <TableView fx:id="ItemTm" layoutX="84.0" layoutY="347.0" prefHeight="268.0" prefWidth="1004.0">
+                    <columns>
+                      <TableColumn fx:id="tmItemCode" prefWidth="112.0" text="Item Code" />
+                      <TableColumn fx:id="tmItemDetails" prefWidth="283.0" text="Item Details" />
+                        <TableColumn fx:id="tmItemPrice" prefWidth="122.0" text="Item Price" />
+                        <TableColumn fx:id="tmSupplierId" prefWidth="150.0" text="Supplier Id" />
+                        <TableColumn fx:id="tmWarranty" prefWidth="125.0" text="Warranty Priod" />
+                        <TableColumn fx:id="tmQty" prefWidth="62.0" text="Qty" />
+                        <TableColumn fx:id="tmCatogory" prefWidth="149.0" text="Catagory" />
+                    </columns>
+                  </TableView>
+                  <JFXButton buttonType="RAISED" layoutX="754.0" layoutY="266.0" onAction="#UpdateOnAction" prefHeight="36.0" prefWidth="86.0" style="-fx-background-color: yellow;" text="Update">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></JFXButton>
+                  <JFXButton fx:id="btnWarranty" buttonType="RAISED" layoutX="990.0" layoutY="629.0" onAction="#btnWarrantyOnAction" prefHeight="36.0" prefWidth="97.0" style="-fx-background-color: blue;" text="Warranty" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <Line endX="100.0" layoutX="669.0" layoutY="132.0" startX="-100.0" />
+                  <ComboBox fx:id="comsupid" layoutX="631.0" layoutY="105.0" onAction="#cmbSupplierOnAction" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #e6e6ff;" />
+                  <Text fill="#0000006a" layoutX="569.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Supplier id" />
+                  <TextField fx:id="txtItemCode" layoutX="84.0" layoutY="155.0" prefHeight="25.0" prefWidth="201.0" promptText="item Code" style="-fx-background-color: #e6e6ff;" />
+                  <Line endX="100.0" layoutX="184.0" layoutY="180.0" startX="-100.0" />
+                  <Text fill="#0000006a" layoutX="84.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Catagory :" />
+                  <ChoiceBox fx:id="itemCatagory" layoutX="171.0" layoutY="105.0" prefHeight="25.0" prefWidth="116.0" />
+                  <TextArea fx:id="txtitemDetails" layoutX="84.0" layoutY="220.0" prefHeight="82.0" prefWidth="448.0" promptText="item Details" style="-fx-background-radius: 0; -fx-background-color: #00004DFF;">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </TextArea>
+                  <JFXButton buttonType="RAISED" layoutX="646.0" layoutY="266.0" onAction="#AddItemOnAction" prefHeight="36.0" prefWidth="86.0" style="-fx-background-color: #2ecc71;" text="+ Add">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <Rectangle arcHeight="30.0" arcWidth="30.0" height="82.0" layoutX="850.0" layoutY="61.0" stroke="#000590" strokeType="INSIDE" width="237.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.3270142180094787" startY="0.895734597156398">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.0660940557718277" green="0.27645793557167053" blue="0.46052631735801697" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.032224658876657486" green="0.032224658876657486" blue="0.30263158679008484" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Rectangle>
+                  <Text fill="WHITE" layoutX="920.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Item">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="872.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/product%20(1).png" />
+                     </image>
+                  </ImageView>
+                  <Line endX="100.0" layoutX="670.0" layoutY="181.0" startX="-100.0" />
+                  <TextField fx:id="txtQty" layoutX="569.0" layoutY="155.0" prefHeight="25.0" prefWidth="201.0" promptText="Item Qty" style="-fx-background-color: #e6e6ff;" />
+                  <TextField fx:id="txtItemPrice" layoutX="328.0" layoutY="107.0" prefHeight="25.0" prefWidth="201.0" promptText="item Price" style="-fx-background-color: #e6e6ff;" />
+                  <Line endX="100.0" layoutX="429.0" layoutY="132.0" startX="-100.0" />
+                  <Line endX="100.0" layoutX="430.0" layoutY="182.0" startX="-100.0" />
+                  <TextField fx:id="txtWarrantyPeriod" layoutX="329.0" layoutY="156.0" prefHeight="25.0" prefWidth="201.0" promptText="Warranty Period" style="-fx-background-color: #e6e6ff;" />
+                  <TextField fx:id="serachItem" layoutX="84.0" layoutY="18.0" onAction="#itemSerachOnAction" prefHeight="25.0" prefWidth="295.0" style="-fx-background-color: white;" />
+                  <Line endX="195.0" layoutX="184.0" layoutY="45.0" startX="-100.0" />
+                  <JFXButton fx:id="btnWarrantyQr" buttonType="RAISED" layoutX="966.0" layoutY="266.0" onAction="#btnWarrantyQRonAction" prefHeight="36.0" prefWidth="124.0" style="-fx-background-color: blue;" text="Warranty Card" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children></Pane>
+            <Label fx:id="lblTotalItem" layoutX="830.0" layoutY="57.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

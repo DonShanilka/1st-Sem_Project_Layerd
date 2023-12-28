@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
+import lk.ijse.semisterfinal.Dao.Custom.impl.EmployeeDaoImpl;
 import lk.ijse.semisterfinal.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.model.AddEmployeeModel;
@@ -57,12 +59,14 @@ public class EmployeeController implements Initializable {
     public TableColumn <?,?> tmBasicSalary;
     public ChoiceBox <String> gender;
     public ChoiceBox <String> department;
-    public TableColumn tmDepartment;
+    public TableColumn <?,?> tmDepartment;
     public ChoiceBox <String> txtEducation;
 
     private String[] mf = {"Male" , "Female"};
     private String[] dep = {"HR", "Finance & Accounting", "Service", "IT"};
     private String[] edu = {"O/L", "A/L", "Diploma", "HND", "Degree", "Masters"};
+
+    EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     public void initialize(){
         loadAllEmployee();
@@ -137,11 +141,12 @@ public class EmployeeController implements Initializable {
         String experiance = txtExpiriance.getText();
         String de = department.getValue();
 
-        var dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
-
         try {
-            boolean addSup= AddEmployeeModel.addEmployee(dto);
+            AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
+            boolean addSup= employeeDao.addEmployee(dto);
+
             if (addSup) {
+                EmployeeTm.getItems().add(new EmployeeTm(id,name,address,tele,date,email,position,gende,education,basic,experiance,de));
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee is Added").show();
                 loadAllEmployee();
                 clearField();
@@ -169,14 +174,18 @@ public class EmployeeController implements Initializable {
             /*if (!validateEmployee()){
                 return;
             }*/
-            var dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
-            boolean isUpdate = AddEmployeeModel.updateEmployee(dto);
+            AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
+            boolean isUpdate = employeeDao.updateEmployee(dto);
 
             if (isUpdate){
+                //EmployeeTm.getSelectionModel().clearSelection();
+                EmployeeTm.getItems().add(new EmployeeTm(id,name,address,tele,date,email,position,gende,education,basic,experiance,de));
+
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee is updated").show();
                 loadAllEmployee();
                 clearField();
             }
+
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }

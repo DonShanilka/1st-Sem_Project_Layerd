@@ -1,17 +1,20 @@
-package lk.ijse.semisterfinal.model;
+package lk.ijse.semisterfinal.Dao.Custom.impl;
 
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
+import lk.ijse.semisterfinal.Dao.Custom.SalaryDao;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
-import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SalaryDTO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class SalaryModel {
-    public static boolean addSalary(SalaryDTO dto) throws SQLException {
+public class SalaryDaoImpl implements SalaryDao {
+
+    @Override
+    public boolean addSalary(SalaryDTO dto) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "INSERT INTO salary VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -34,7 +37,8 @@ public class SalaryModel {
         return isSaved;
     }
 
-    public static ArrayList<SalaryDTO> getAllSalary() throws SQLException {
+    @Override
+    public ArrayList<SalaryDTO> getAllSalary() throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "SELECT * FROM salary";
@@ -65,7 +69,8 @@ public class SalaryModel {
         return dtoList;
     }
 
-    public static AtendanceDTO getABcount(String id) throws SQLException {
+    @Override
+    public AtendanceDTO getABcount(String id) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         //String sqlPr = "SELECT COUNT(presentAbsent) FROM attendance WHERE employee_id  = 'Present'";
@@ -87,7 +92,8 @@ public class SalaryModel {
     }
 
 
-    public static AtendanceDTO getPRcount(String id) throws SQLException {
+    @Override
+    public AtendanceDTO getPRcount(String id) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         //String sqlPr = "SELECT COUNT(presentAbsent) FROM attendance WHERE employee_id  = 'Present'";

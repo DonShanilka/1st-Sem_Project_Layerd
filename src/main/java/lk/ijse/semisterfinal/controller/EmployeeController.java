@@ -20,12 +20,14 @@ import lk.ijse.semisterfinal.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.model.AddEmployeeModel;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -212,33 +214,16 @@ public class EmployeeController implements Initializable {
     }
 
     private void loadAllEmployee() {
-        var model = new AddEmployeeModel();
 
-        ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
+        EmployeeTm.getItems().clear();
 
         try {
-            List<AddEmployeeDTO> dtoList = model.getAllEmployee();
+            List <AddEmployeeDTO> dtoList = employeeDao.getAllEmployee();
 
-            for (AddEmployeeDTO dto : dtoList) {
-                obList.add(
-                        new EmployeeTm(
-                                dto.getEmployeeId(),
-                                dto.getEmployeeName(),
-                                dto.getEmpAddress(),
-                                dto.getEmployeePhone(),
-                                dto.getEmpDate(),
-                                dto.getEmpPosition(),
-                                dto.getEmail(),
-                                dto.getGender(),
-                                dto.getEducation(),
-                                dto.getBasicSalary(),
-                                dto.getExpiriance(),
-                                dto.getDe()
-                        )
-                );
+            for (AddEmployeeDTO e : dtoList) {
+                EmployeeTm.getItems().add(new EmployeeTm(e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe()));
             }
 
-            EmployeeTm.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

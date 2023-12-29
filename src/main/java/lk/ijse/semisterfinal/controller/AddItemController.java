@@ -25,6 +25,7 @@ import lk.ijse.semisterfinal.Dao.Custom.impl.CustomerDaoImpl;
 import lk.ijse.semisterfinal.Dao.Custom.impl.ItemDaoImpl;
 import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.Tm.ItemTm;
+import lk.ijse.semisterfinal.Tm.SupplierTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
@@ -160,26 +161,16 @@ public class AddItemController implements Initializable {
 
 
     private void loadAllItem() {
-        ObservableList<ItemTm> obList = FXCollections.observableArrayList();
+
+        ItemTm.getItems().clear();
 
         try {
             ArrayList<ItemDTO> dtoList = itemDao.getAllItem();
 
-            for (ItemDTO dto : dtoList) {
-                obList.add(
-                        new ItemTm(
-                                dto.getItemCode(),
-                                dto.getItemDetails(),
-                                dto.getItemPrice(),
-                                dto.getSupplierId(),
-                                dto.getWarrantyPeriod(),
-                                dto.getItemQty(),
-                                dto.getCato()
-
-                        ));
+            for (ItemDTO i : dtoList) {
+                ItemTm.getItems().add(new ItemTm(i.getItemCode(),i.getItemDetails(),i.getItemPrice(),i.getSupplierId(),i.getWarrantyPeriod(),i.getItemQty(),i.getCato()));
             }
 
-            ItemTm.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -251,18 +242,22 @@ public class AddItemController implements Initializable {
     }
 
 public void loadAllSupplier() {
+
     ObservableList<String> obList = FXCollections.observableArrayList();
     try {
-        ArrayList<SupplierDTO> teacherDtos = SupplierModel.getAllSupplier();
+        ArrayList<SupplierDTO> teacherDtos = itemDao.getAllSupplier();
 
         for (SupplierDTO dto : teacherDtos) {
             obList.add(dto.getSupNic());
         }
         comsupid.setItems(obList);
+
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
 }
+
+
     public void itemSerachOnAction() {
         FilteredList<ItemTm> filteredData = new FilteredList<>(ItemTm.getItems(), b -> true);
 
@@ -325,20 +320,22 @@ public void loadAllSupplier() {
     private boolean validateCustomer() {
         boolean isValidate = true;
         boolean id = Pattern.matches("[A-Za-z]{0,}",txtItemCode.getText());
+
         if (!id){
             showErrorNotification("Invalid id", "The id you entered is invalid");
             isValidate = false;
         }
+
         boolean details = Pattern.matches("[A-Za-z]{0,}",txtitemDetails.getText());
         if (!details){
             showErrorNotification("Invalid details", "The details you entered is invalid");
             isValidate = false;
         }
+
         boolean qty = Pattern.matches("[0-9]{0,}",txtQty.getText());
         if (!qty){
             showErrorNotification("Invalid Qty", "The Qty Number you entered is invalid");
             isValidate = false;
-
         }
         return isValidate;
     }

@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Dao.Custom.SalaryDao;
+import lk.ijse.semisterfinal.Dao.Custom.impl.SalaryDaoImpl;
 import lk.ijse.semisterfinal.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.Tm.SalaryTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
@@ -70,6 +72,8 @@ public class SalaryController implements Initializable {
 
     private ObservableList <SalaryTm> obList = FXCollections.observableArrayList();
 
+    SalaryDao salaryDao = new SalaryDaoImpl();
+
     public void initialize() {
         date.setPromptText(String.valueOf(LocalDate.now()));
         loadEmployeeId();
@@ -118,30 +122,6 @@ public class SalaryController implements Initializable {
 
     }
 
-    public void AddSalaryOnAction(ActionEvent event) {
-        double amount = Double.parseDouble(salary.getText());
-        String id = comEmpId.getValue();
-        String Name = lblName.getText();
-        String date1 = String.valueOf(date.getValue());
-
-        var dto = new SalaryDTO(amount, id, Name, date1);
-
-        try {
-            boolean isaddite = SalaryModel.addSalary(dto);
-            if (isaddite) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
-                clearField();
-                loadAllSalary();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-    }
-
-
-    public void BackOnAction(ActionEvent event) {
-
-    }
 
     private void loadEmployeeId() {
         ObservableList<String> obList = FXCollections.observableArrayList();
@@ -160,7 +140,7 @@ public class SalaryController implements Initializable {
     }
 
     public void comEmpIdOnAction(ActionEvent event) {
-        String id = (String) comEmpId.getValue();
+        String id = comEmpId.getValue();
         try {
             AddEmployeeDTO dto = AddEmployeeModel.searchEmployee(id);
             AtendanceDTO dto1 = SalaryModel.getABcount(id);
@@ -271,11 +251,13 @@ public class SalaryController implements Initializable {
         int abcount = Integer.parseInt(absent.getText());
         double totalsalary = Double.parseDouble(lblTotalSalary.getText());
 
-        var dto = new SalaryDTO(amount,id,Name,date1,otHcount,pay1h,bonase,epf,etf,prCount,abcount,totalsalary);
-
         try {
-            boolean isaddite = SalaryModel.addSalary(dto);
+            SalaryDTO dto = new SalaryDTO(amount,id,Name,date1,otHcount,pay1h,bonase,epf,etf,prCount,abcount,totalsalary);
+            boolean isaddite = salaryDao.addSalary(dto);
+
             if (isaddite) {
+                salaryTm.getItems().add(new SalaryTm(dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),dto.getSalary(),dto.getOtcount(),dto.getPay1h(), dto.getBonase(),dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary()));
+
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
                 clearField();
                 loadAllSalary();

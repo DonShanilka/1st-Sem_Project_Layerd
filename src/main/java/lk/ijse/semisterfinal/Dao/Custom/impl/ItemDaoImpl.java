@@ -3,6 +3,7 @@ package lk.ijse.semisterfinal.Dao.Custom.impl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
 import lk.ijse.semisterfinal.dto.ItemDTO;
+import lk.ijse.semisterfinal.dto.SupplierDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -143,6 +144,37 @@ public class ItemDaoImpl implements ItemDao {
             dto = new ItemDTO(item_code,item_name,item_price,sup_id,warranty,qty,cat);
         }
         return dto;
+    }
+
+    public ArrayList<SupplierDTO> getAllSupplier() throws SQLException {
+        Connection connection = DbConnetion.getInstance().getConnection();
+
+        String sql = "SELECT * FROM supplier";
+
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        ResultSet resultSet = pstm.executeQuery();
+
+        ArrayList<SupplierDTO> dtoList = new ArrayList<>();
+
+        while(resultSet.next()) {
+            dtoList.add(
+                    new SupplierDTO(
+                            resultSet.getString(1),
+                            resultSet.getString(2),
+                            resultSet.getInt(3),
+                            resultSet.getString(4),
+                            resultSet.getString(5),
+                            resultSet.getString(6),
+                            resultSet.getInt(7),
+                            resultSet.getString(8),
+                            resultSet.getInt(9),
+                            resultSet.getString(10),
+                            resultSet.getString(11)
+                    )
+            );
+        }
+        return dtoList;
+
     }
 
 }

@@ -2,6 +2,7 @@ package lk.ijse.semisterfinal.Dao.Custom.impl;
 
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
+import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 
 import java.sql.Connection;
@@ -9,67 +10,46 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
-    public boolean addEmployee(AddEmployeeDTO dto) throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
-
-        String sql = "INSERT INTO employee VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement ptm = connection.prepareStatement(sql);
-
-        ptm.setString(1, dto.getEmployeeId());
-        ptm.setString(2, dto.getEmployeeName());
-        ptm.setString(3, dto.getEmpAddress());
-        ptm.setInt(4, dto.getEmployeePhone());
-        ptm.setString(5, dto.getEmpDate());
-        ptm.setString(6, dto.getEmpPosition());
-        ptm.setString(7, dto.getEmail());
-        ptm.setString(8, dto.getGender());
-        ptm.setString(9,dto.getEducation());
-        ptm.setDouble(10,dto.getBasicSalary());
-        ptm.setString(11,dto.getExpiriance());
-        ptm.setString(12,dto.getDe());
-
-        return ptm.executeUpdate()>0;
+    public boolean Add(AddEmployeeDTO e) throws SQLException, ClassNotFoundException {
+       return SqlUtil.test("INSERT INTO employee VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),
+               e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe());
 
     }
 
     @Override
-    public List<AddEmployeeDTO> getAllEmployee() throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
+    public ArrayList<AddEmployeeDTO> getAll() throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM employee";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SqlUtil.test("SELECT * FROM employee");
 
-        ArrayList<AddEmployeeDTO> dtoList = new ArrayList<>();
+        ArrayList <AddEmployeeDTO> dtoList = new ArrayList<>();
 
         while (resultSet.next()) {
-            dtoList.add(
-                    new AddEmployeeDTO(
-                            resultSet.getString(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getInt(4),
-                            resultSet.getString(5),
-                            resultSet.getString(6),
-                            resultSet.getString(7),
-                            resultSet.getString(8),
-                            resultSet.getString(9),
-                            resultSet.getDouble(10),
-                            resultSet.getString(11),
-                            resultSet.getString(12)
-                    )
-            );
+                    AddEmployeeDTO dto = new AddEmployeeDTO(
+                            resultSet.getString("employeeId"),
+                            resultSet.getString("EmployeeName"),
+                            resultSet.getString("EmpAddress"),
+                            resultSet.getInt("EmployeePhone"),
+                            resultSet.getString("empDate"),
+                            resultSet.getString("empPosition"),
+                            resultSet.getString("email"),
+                            resultSet.getString("Gender"),
+                            resultSet.getString("Education"),
+                            resultSet.getDouble("BasicSalary"),
+                            resultSet.getString("Expiriance"),
+                            resultSet.getString("de"));
+
+            dtoList.add(dto);
         }
+
         return dtoList;
     }
 
     @Override
-    public boolean updateEmployee(AddEmployeeDTO dto) throws SQLException {
+    public boolean update(AddEmployeeDTO dto) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "UPDATE employee SET employee_name = ?, employee_address = ?, employee_teliphone = ?, job_start_date = ? , position =?, email =?, gender =?, education =?, basicSalary =?, experiance =?, department =?  WHERE employee_id = ?";
@@ -94,7 +74,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public AddEmployeeDTO searchEmployee(String id) throws SQLException {
+    public AddEmployeeDTO search(String id) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "SELECT * FROM employee WHERE employee_id = ? ";
@@ -121,7 +101,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 
     @Override
-    public boolean deleteEmployee(String id) throws SQLException {
+    public boolean delete(String id) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "DELETE FROM employee WHERE employee_id = ?";

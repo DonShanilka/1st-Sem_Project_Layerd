@@ -3,13 +3,15 @@ package lk.ijse.semisterfinal.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
 
-public class CusromerDTO {
+public class CusromerDTO implements Serializable {
     private String txtCustId;
     private String txtCustAddress;
     private String txtCustName;
@@ -25,15 +27,4 @@ public class CusromerDTO {
         txtCustPayment = payment;
     }
 
-    public CusromerDTO(String id) {
-        txtCustId = id;
-    }
-
-    public String getTxtCustName() {
-        return txtCustName;
-    }
-
-    public void setTxtCustName(String txtCustName) {
-        this.txtCustName = txtCustName;
-    }
 }

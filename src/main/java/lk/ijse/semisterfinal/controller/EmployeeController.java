@@ -145,7 +145,7 @@ public class EmployeeController implements Initializable {
 
         try {
             AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
-            boolean addSup= employeeDao.addEmployee(dto);
+            boolean addSup= employeeDao.Add(dto);
 
             if (addSup) {
                 EmployeeTm.getItems().add(new EmployeeTm(id,name,address,tele,date,email,position,gende,education,basic,experiance,de));
@@ -155,6 +155,8 @@ public class EmployeeController implements Initializable {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -177,7 +179,7 @@ public class EmployeeController implements Initializable {
                 return;
             }*/
             AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
-            boolean isUpdate = employeeDao.updateEmployee(dto);
+            boolean isUpdate = employeeDao.update(dto);
 
             if (isUpdate){
                 //EmployeeTm.getSelectionModel().clearSelection();
@@ -197,7 +199,7 @@ public class EmployeeController implements Initializable {
         String id = txtemployeeId.getText();
 
         try {
-            boolean isDeleted = employeeDao.deleteEmployee(id);
+            boolean isDeleted = employeeDao.delete(id);
             if(isDeleted) {
                 EmployeeTm.getSelectionModel().clearSelection();
 
@@ -218,13 +220,15 @@ public class EmployeeController implements Initializable {
         EmployeeTm.getItems().clear();
 
         try {
-            List <AddEmployeeDTO> dtoList = employeeDao.getAllEmployee();
+            ArrayList <AddEmployeeDTO> dtoList = employeeDao.getAll();
 
             for (AddEmployeeDTO e : dtoList) {
                 EmployeeTm.getItems().add(new EmployeeTm(e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe()));
             }
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

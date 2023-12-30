@@ -1,7 +1,5 @@
 package lk.ijse.semisterfinal.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -14,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import lk.ijse.semisterfinal.Dao.Custom.impl.CustomerDaoImpl;
 import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
-import lk.ijse.semisterfinal.model.CustomerModel;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
@@ -36,21 +33,6 @@ public class AddCustomerController implements Initializable {
     public TableColumn <?, ?> tbCpayment;
     public TableColumn <?, ?> tbCitemId;
     public TextField serachItem;
-    @FXML
-    private BorderPane borderPane;
-
-    @FXML
-    private Label newCustomer;
-
-    @FXML
-    private Label newCustomerBack;
-
-    @FXML
-    private AnchorPane rootNode;
-
-    @FXML
-    private AnchorPane sliderAnchor;
-
     @FXML
     public TextField txtCustMobile;
     @FXML
@@ -78,6 +60,23 @@ public class AddCustomerController implements Initializable {
     }
 
 
+    private void tableListener() {
+        CustomerAddTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
+            setData(newValue);
+
+        });
+    }
+
+    private void setData(CustomerTm row) {
+        txtCustId.setText(row.getId());
+        txtCustAddress.setText(row.getAddress());
+        txtCustName.setText(row.getName());
+        txtCustMobile.setText(row.getTel());
+        txtCustitemId.setText(row.getItemId());
+        txtCustPayment.setText(row.getPayment());
+
+    }
+
 
     public void CustomerUpdateOnAction(ActionEvent event) throws IOException {
         String custId = txtCustId.getText();
@@ -93,7 +92,7 @@ public class AddCustomerController implements Initializable {
             }
 
             CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
-            boolean isSave= customerDao.updateCustomer(dto);
+            boolean isSave= customerDao.update(dto);
             if (isSave){
 
                 //CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
@@ -105,19 +104,19 @@ public class AddCustomerController implements Initializable {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        
+
     }
 
     public void CustomerDeleteOnAction(ActionEvent event) {
         String id = txtCustId.getText();
 
         try{
-            CusromerDTO customerDTO = new CusromerDTO(id);
+            boolean isDelete = customerDao.delete(id);
 
-            boolean isDelete = customerDao.deleteCustomer(String.valueOf(customerDTO));
             if (isDelete){
-                CustomerAddTable.getItems().remove(CustomerAddTable.getSelectionModel().getSelectedItem());
                 CustomerAddTable.getSelectionModel().clearSelection();
 
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer deleted").show();
@@ -125,9 +124,9 @@ public class AddCustomerController implements Initializable {
                 clearField();
             }
             CustomerAddTable.getItems().remove(CustomerAddTable.getSelectionModel().getSelectedItem());
-            //CustomerAddTable.getSelectionModel().clearSelection();
+            loadAllCustomer();
 
-        }catch (SQLException e){
+        }catch (SQLException | ClassNotFoundException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
     }
@@ -146,17 +145,19 @@ public class AddCustomerController implements Initializable {
             }
 
             CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
-            boolean isSave= customerDao.AddCustomer(dto);
+            boolean isSave= customerDao.Add(dto);
             if (isSave){
 
-                //CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is Added").show();
                 loadAllCustomer();
                 clearField();
             }
             CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
+            loadAllCustomer();
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -179,15 +180,14 @@ public class AddCustomerController implements Initializable {
     }
 
     private void loadAllCustomer() {
-        var model = new CustomerModel();
 
-        ObservableList <CustomerTm> obList = FXCollections.observableArrayList();
+        CustomerAddTable.getItems().clear();
 
         try {
-            List <CusromerDTO> dtoList = model.getAllCustomer();
+            List <CusromerDTO> dtoList = customerDao.getAll();
 
             for (CusromerDTO dto : dtoList) {
-                obList.add(
+                CustomerAddTable.getItems().addAll(
                         new CustomerTm(
                                 dto.getTxtCustId(),
                                 dto.getTxtCustName(),
@@ -199,8 +199,7 @@ public class AddCustomerController implements Initializable {
                 );
             }
 
-            CustomerAddTable.setItems(obList);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -235,6 +234,7 @@ public class AddCustomerController implements Initializable {
         setCellValueFactory();
         clearField();
         itemSerachOnAction();
+        tableListener();
     }
 
 

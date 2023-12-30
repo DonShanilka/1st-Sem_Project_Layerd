@@ -1,12 +1,16 @@
 package lk.ijse.semisterfinal.Dao.Custom;
 
+import lk.ijse.semisterfinal.Dao.CrudDAO;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public interface CustomerDao {
-    boolean AddCustomer(CusromerDTO dto) throws SQLException;
-    boolean deleteCustomer(String id) throws SQLException;
+public interface CustomerDao extends CrudDAO <CusromerDTO> {
+    boolean Add(CusromerDTO dto) throws SQLException, ClassNotFoundException;
+    boolean delete(String id) throws SQLException, ClassNotFoundException;
 
-    boolean updateCustomer(CusromerDTO dto) throws SQLException;
+    boolean update(CusromerDTO dto) throws SQLException, ClassNotFoundException;
+
+    ArrayList <CusromerDTO> getAll() throws SQLException, ClassNotFoundException;
 }

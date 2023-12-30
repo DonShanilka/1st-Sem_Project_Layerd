@@ -1,4 +1,5 @@
 package lk.ijse.semisterfinal.Dao;
 
-public class CrudDao {
+public interface SupperDAO {
+
 }

@@ -155,17 +155,16 @@ public class SalaryController implements Initializable {
     }
 
     private void loadAllSalary() {
-        var model = new SalaryModel();
 
-        ObservableList<SalaryTm> obList = FXCollections.observableArrayList();
+        salaryTm.getItems().clear();
 
         try {
-            List<SalaryDTO> dtoList = model.getAllSalary();
+            List<SalaryDTO> dtoList = salaryDao.getAllSalary();
 
             for (SalaryDTO dto : dtoList) {
                 Button btn = new Button("Remove");
                 //setRemoveBtnAction(btn, dto);
-                obList.add(
+                salaryTm.getItems().add(
                         new SalaryTm(
                                 dto.getEmployeeId(),
                                 dto.getEmployeeName(),
@@ -183,7 +182,7 @@ public class SalaryController implements Initializable {
                         )
                 );
             }
-            salaryTm.setItems(obList);
+           
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }

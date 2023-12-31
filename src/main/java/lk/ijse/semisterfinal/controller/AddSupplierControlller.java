@@ -142,16 +142,17 @@ public class AddSupplierControlller  {
                     clearField();
                 }
 
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
             }
         }
 
 
     public void deleteSupplierOnAction(ActionEvent event) {
-        String id = txtSupNic.getText();
+        String sid = txtSupNic.getText();
 
         try {
+            SupplierDTO id = new SupplierDTO(sid);
             boolean isDeleted = supplierDao.deleteSupplier(id);
             if(isDeleted) {
                 supplierAddTable.getSelectionModel().clearSelection();
@@ -165,6 +166,8 @@ public class AddSupplierControlller  {
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -197,6 +200,8 @@ public class AddSupplierControlller  {
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -210,7 +215,7 @@ public class AddSupplierControlller  {
                 supplierAddTable.getItems().add(new SupplierTm(i.getSupNic(), i.getSupName(), i.getMobile(),i.getEmail(),i.getCoName(),i.getCoAddress(),i.getItemcode(),i.getItemName(),i.getQty(),i.getBNum(),i.getCatagory()));
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

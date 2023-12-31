@@ -18,9 +18,6 @@ public class ItemDTO {
     private int ItemQty;
     private String cato;
 
-    public ItemDTO(String text, String text1, Object value) {
-
-    }
 
     public ItemDTO(String itemCode, String itemName, double itemPrice, String supId, String warranty, String qty,String cato) {
         ItemCode = itemCode;
@@ -30,5 +27,9 @@ public class ItemDTO {
         WarrantyPeriod = warranty;
         ItemQty = Integer.parseInt(qty);
         this.cato = cato;
+    }
+
+    public ItemDTO(String iId) {
+        ItemCode = iId;
     }
 }

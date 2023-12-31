@@ -11,16 +11,12 @@ public interface ItemDao {
 
     boolean addItem(ItemDTO dto) throws SQLException, ClassNotFoundException;
 
-    boolean deleteItem(String id) throws SQLException;
+    boolean deleteItem(ItemDTO id) throws SQLException, ClassNotFoundException;
 
-    boolean updateItem(ItemDTO dto) throws SQLException;
+    boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException;
 
-    List<ItemDTO> loadAllItems() throws SQLException;
+    ArrayList<ItemDTO> getAllItem() throws SQLException, ClassNotFoundException;
 
-    ArrayList<ItemDTO> getAllItem() throws SQLException;
-
-    ItemDTO searchItemId(String id) throws SQLException;
-
-    ArrayList<SupplierDTO> getAllSupplier() throws SQLException;
+    ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException;
 
 }

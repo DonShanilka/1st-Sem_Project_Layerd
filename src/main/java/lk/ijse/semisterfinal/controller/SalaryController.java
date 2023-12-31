@@ -162,8 +162,7 @@ public class SalaryController implements Initializable {
             List<SalaryDTO> dtoList = salaryDao.getAllSalary();
 
             for (SalaryDTO dto : dtoList) {
-                Button btn = new Button("Remove");
-                //setRemoveBtnAction(btn, dto);
+
                 salaryTm.getItems().add(
                         new SalaryTm(
                                 dto.getEmployeeId(),
@@ -185,6 +184,8 @@ public class SalaryController implements Initializable {
            
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -261,7 +262,7 @@ public class SalaryController implements Initializable {
                 clearField();
                 loadAllSalary();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 

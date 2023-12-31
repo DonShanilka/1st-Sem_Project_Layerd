@@ -154,7 +154,7 @@ public class AddItemController implements Initializable {
             ItemTm.getItems().add(new ItemTm(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat));
 
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
     }
@@ -171,11 +171,10 @@ public class AddItemController implements Initializable {
                 ItemTm.getItems().add(new ItemTm(i.getItemCode(),i.getItemDetails(),i.getItemPrice(),i.getSupplierId(),i.getWarrantyPeriod(),i.getItemQty(),i.getCato()));
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 
     public void UpdateOnAction(ActionEvent event) throws IOException {
@@ -191,6 +190,7 @@ public class AddItemController implements Initializable {
             /*if (!validateEmployee()){
                 return;
             }*/
+
             ItemDTO dto = new ItemDTO(id,name,price,supid,warranty,Qty,cat);
             boolean isUpdate = itemDao.updateItem(dto);
 
@@ -204,13 +204,16 @@ public class AddItemController implements Initializable {
 
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void deleteOnAction(ActionEvent event) {
-        String id = txtItemCode.getText();
+        String i_id = txtItemCode.getText();
 
         try {
+            ItemDTO id = new ItemDTO(i_id);
             boolean isDeleted = itemDao.deleteItem(id);
 
             if(isDeleted) {
@@ -226,6 +229,8 @@ public class AddItemController implements Initializable {
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -253,6 +258,8 @@ public void loadAllSupplier() {
         comsupid.setItems(obList);
 
     } catch (SQLException e) {
+        throw new RuntimeException(e);
+    } catch (ClassNotFoundException e) {
         throw new RuntimeException(e);
     }
 }

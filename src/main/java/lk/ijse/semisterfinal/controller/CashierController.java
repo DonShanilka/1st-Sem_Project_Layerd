@@ -38,10 +38,7 @@ public class CashierController {
     public TextField txtDiscount;
     public TextField paidAmount;
     public Label lblBalence;
-    public TableColumn colDiscount;
-    public TextField txtCustName;
-    @FXML
-    private AnchorPane pane;
+    public TableColumn <?,?> colDiscount;
     @FXML
     private Label lblOrderId;
     @FXML
@@ -50,7 +47,6 @@ public class CashierController {
     private JFXComboBox<String> cmbCustomerId;
     @FXML
     private Label lblCustomerName;
-
     @FXML
     private JFXComboBox<String> cmbItemCode;
     @FXML
@@ -74,19 +70,13 @@ public class CashierController {
     @FXML
     private TableColumn<?, ?> colAction;
     @FXML
-    private JFXButton btnAddToCart;
-    @FXML
     private Label lblNetTotal;
     @FXML
     private TableColumn<?, ?> colQty;
 
-    private ObservableList<CartTm> ObList = FXCollections.observableArrayList();
     private ItemModel itemModel = new ItemModel();
     private CustomerModel customerModel = new CustomerModel();
-    private CashiyerModel cashiyerModel = new CashiyerModel();
     private OrderModel orderModel = new OrderModel();
-    private BillModel billModel = new BillModel();
-
     private ObservableList<CartTm> obList = FXCollections.observableArrayList();
 
     public void initialize() {

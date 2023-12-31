@@ -2,6 +2,7 @@ package lk.ijse.semisterfinal.Dao.Custom.impl;
 
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.SalaryDao;
+import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
 import lk.ijse.semisterfinal.dto.SalaryDTO;
 
@@ -14,38 +15,16 @@ import java.util.ArrayList;
 public class SalaryDaoImpl implements SalaryDao {
 
     @Override
-    public boolean addSalary(SalaryDTO dto) throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
+    public boolean addSalary(SalaryDTO dto) throws SQLException, ClassNotFoundException {
+        return SqlUtil.test("INSERT INTO salary VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),
+                dto.getSalary(),dto.getOtcount(),dto.getPay1h(),dto.getBonase(),dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary());
 
-        String sql = "INSERT INTO salary VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-
-        PreparedStatement ptm = connection.prepareStatement(sql);
-        ptm.setString(1, dto.getDate());
-        ptm.setString(2, dto.getEmployeeId());
-        ptm.setString(3, dto.getEmployeeName());
-        ptm.setDouble(4, dto.getSalary());
-        ptm.setInt(5, dto.getOtcount());
-        ptm.setDouble(6,dto.getPay1h());
-        ptm.setDouble(7, dto.getBonase());
-        ptm.setInt(8, dto.getEpf());
-        ptm.setInt(9, dto.getEtf());
-        ptm.setInt(10, dto.getPrCount());
-        ptm.setInt(11, dto.getAbcount());
-        ptm.setDouble(12, dto.getTotalsalary());
-
-        boolean isSaved = ptm.executeUpdate()>0;
-        return isSaved;
     }
 
     @Override
-    public ArrayList<SalaryDTO> getAllSalary() throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
+    public ArrayList<SalaryDTO> getAllSalary() throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM salary";
-
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
-
+        ResultSet resultSet = SqlUtil.test("SELECT * FROM salary");
         ArrayList<SalaryDTO> dtoList = new ArrayList<>();
 
         while(resultSet.next()) {
@@ -69,18 +48,11 @@ public class SalaryDaoImpl implements SalaryDao {
         return dtoList;
     }
 
+
     @Override
-    public AtendanceDTO getABcount(String id) throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
+    public AtendanceDTO getABcount(SalaryDTO id) throws SQLException, ClassNotFoundException {
 
-        //String sqlPr = "SELECT COUNT(presentAbsent) FROM attendance WHERE employee_id  = 'Present'";
-        String sqlAb = "SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Absent'";
-
-        PreparedStatement pstm = connection.prepareStatement(sqlAb);
-        pstm.setString(1, String.valueOf(id));
-
-        ResultSet resultSet = pstm.executeQuery();
-
+        ResultSet resultSet = SqlUtil.test("SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Absent'",id.getAbcount());
         AtendanceDTO dto = null;
 
         if (resultSet.next()) {
@@ -93,15 +65,9 @@ public class SalaryDaoImpl implements SalaryDao {
 
 
     @Override
-    public AtendanceDTO getPRcount(String id) throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
+    public AtendanceDTO getPRcount(SalaryDTO id) throws SQLException, ClassNotFoundException {
 
-        //String sqlPr = "SELECT COUNT(presentAbsent) FROM attendance WHERE employee_id  = 'Present'";
-        String sqlAb = "SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Present'";
-
-        PreparedStatement pstm = connection.prepareStatement(sqlAb);
-        pstm.setString(1, String.valueOf(id));
-
+        PreparedStatement pstm = SqlUtil.test("SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Present'",id.getPrCount());
         ResultSet resultSet = pstm.executeQuery();
 
         AtendanceDTO dto = null;

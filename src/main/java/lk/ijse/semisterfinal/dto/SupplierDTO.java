@@ -49,4 +49,8 @@ public class SupplierDTO {
         this.catagory = catagory;
         this.supNic = supId;
     }
+
+    public SupplierDTO(String sid) {
+        supNic = sid;
+    }
 }

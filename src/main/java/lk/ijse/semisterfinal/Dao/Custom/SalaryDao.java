@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public interface SalaryDao {
 
-    boolean addSalary(SalaryDTO dto) throws SQLException;
+    boolean addSalary(SalaryDTO dto) throws SQLException, ClassNotFoundException;
 
-    ArrayList<SalaryDTO> getAllSalary() throws SQLException;
+    ArrayList<SalaryDTO> getAllSalary() throws SQLException, ClassNotFoundException;
 
-    AtendanceDTO getABcount(String id) throws SQLException;
+    AtendanceDTO getABcount(SalaryDTO id) throws SQLException, ClassNotFoundException;
 
-    AtendanceDTO getPRcount(String id) throws SQLException;
+    AtendanceDTO getPRcount(SalaryDTO id) throws SQLException, ClassNotFoundException;
 
 }

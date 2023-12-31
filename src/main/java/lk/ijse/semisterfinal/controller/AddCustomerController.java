@@ -111,9 +111,10 @@ public class AddCustomerController implements Initializable {
     }
 
     public void CustomerDeleteOnAction(ActionEvent event) {
-        String id = txtCustId.getText();
+        String cid = txtCustId.getText();
 
         try{
+            CusromerDTO id = new CusromerDTO(cid);
             boolean isDelete = customerDao.delete(id);
 
             if (isDelete){

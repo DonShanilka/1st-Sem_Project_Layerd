@@ -2,6 +2,7 @@ package lk.ijse.semisterfinal.Dao.Custom.impl;
 
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
+import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
 
@@ -15,23 +16,9 @@ import java.util.List;
 public class ItemDaoImpl implements ItemDao {
 
     @Override
-    public boolean addItem(ItemDTO dto) throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
-
-        String sql = "INSERT INTO item VALUES(?,?,?,?,?,?,?)";
-
-        PreparedStatement ptm = connection.prepareStatement(sql);
-        ptm.setString(1, dto.getItemCode());
-        ptm.setString(2, dto.getItemDetails());
-        ptm.setDouble(3, dto.getItemPrice());
-        ptm.setString(4, dto.getSupplierId());
-        ptm.setString(5, dto.getWarrantyPeriod());
-        ptm.setString(6, String.valueOf(dto.getItemQty()));
-        ptm.setString(7, dto.getCato());
-
-
-        boolean isSaved = ptm.executeUpdate()>0;
-        return isSaved;
+    public boolean addItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+        return SqlUtil.test("INSERT INTO item VALUES(?,?,?,?,?,?,?)",dto.getItemCode(),dto.getItemDetails(),dto.getItemPrice(),
+                dto.getSupplierId(),dto.getWarrantyPeriod(),dto.getItemQty(),dto.getCato());
     }
 
     @Override

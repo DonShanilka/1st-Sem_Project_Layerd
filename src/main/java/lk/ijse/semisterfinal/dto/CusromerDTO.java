@@ -27,4 +27,7 @@ public class CusromerDTO implements Serializable {
         txtCustPayment = payment;
     }
 
+    public CusromerDTO(String cid) {
+        txtCustId = cid;
+    }
 }

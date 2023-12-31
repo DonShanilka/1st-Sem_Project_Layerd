@@ -47,4 +47,8 @@ public class AddEmployeeDTO {
         this.Expiriance = experiance;
         this.de = de;
     }
+
+    public AddEmployeeDTO(String eid) {
+        employeeId = eid;
+    }
 }

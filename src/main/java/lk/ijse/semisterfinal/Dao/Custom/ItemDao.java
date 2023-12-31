@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ItemDao {
 
-    boolean addItem(ItemDTO dto) throws SQLException;
+    boolean addItem(ItemDTO dto) throws SQLException, ClassNotFoundException;
 
     boolean deleteItem(String id) throws SQLException;
 

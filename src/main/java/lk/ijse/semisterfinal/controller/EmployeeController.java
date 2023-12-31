@@ -192,13 +192,17 @@ public class EmployeeController implements Initializable {
 
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void EmployeeDeleteOnAction(ActionEvent event) {
-        String id = txtemployeeId.getText();
+        String eid = txtemployeeId.getText();
 
         try {
+            AddEmployeeDTO id = new AddEmployeeDTO(eid);
+
             boolean isDeleted = employeeDao.delete(id);
             if(isDeleted) {
                 EmployeeTm.getSelectionModel().clearSelection();
@@ -210,7 +214,7 @@ public class EmployeeController implements Initializable {
             }
             EmployeeTm.getItems().remove(EmployeeTm.getSelectionModel().getSelectedItem());
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }

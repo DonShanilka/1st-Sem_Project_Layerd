@@ -7,7 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.semisterfinal.Dao.Custom.AttendanceDao;
+import lk.ijse.semisterfinal.Dao.Custom.impl.AttendanceDaoImpl;
 import lk.ijse.semisterfinal.Tm.AtendanceTm;
+import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
@@ -35,9 +38,11 @@ public class AttendanceController implements Initializable {
     public DatePicker AttDate;
     public ChoiceBox <String> presentAbsent;
     public TableColumn <?,?> colPa;
+
     private AddEmployeeModel employeeModel = new AddEmployeeModel();
-    private AtendanceModel attendanceModel = new AtendanceModel();
     private ObservableList<AtendanceTm> obList = FXCollections.observableArrayList();
+
+    private AttendanceDao attendanceDao = new  AttendanceDaoImpl();
 
     private String[] pA = {"Present" , "Absent"};
 
@@ -54,6 +59,21 @@ public class AttendanceController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colPa.setCellValueFactory(new PropertyValueFactory<>("Present"));
+    }
+
+    private void tableListener() {
+        atendanceTm.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
+            setData(newValue);
+
+        });
+    }
+
+    private void setData(AtendanceTm row) {
+        comEmpId.setValue(row.getEmployeeId());
+        lblName.setText(row.getEmployeeName());
+        date.setValue(LocalDate.parse(row.getDate()));
+        presentAbsent.setValue(row.getPresent());
+
     }
 
     private void loadAllEmployee() {
@@ -81,13 +101,15 @@ public class AttendanceController implements Initializable {
         var dto = new AtendanceDTO(date,id,name,pOra);
 
         try {
-            boolean isaddite = AtendanceModel.addAttendance(dto);
+            boolean isaddite = attendanceDao.add(dto);
             if (isaddite) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
                 loadAllEmployee();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -104,12 +126,11 @@ public class AttendanceController implements Initializable {
 
 
     private void loadallAttendance(){
-        var model = new AtendanceModel();
 
         ObservableList<AtendanceTm>  oblist = FXCollections.observableArrayList();
 
         try{
-            List<AtendanceDTO> dtoList = model.getAllatendance();
+            List<AtendanceDTO> dtoList = attendanceDao.getAll();
 
             for (AtendanceDTO dto: dtoList) {
                 oblist.add(new AtendanceTm(
@@ -122,6 +143,8 @@ public class AttendanceController implements Initializable {
             atendanceTm.setItems(obList);
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -137,5 +160,6 @@ public class AttendanceController implements Initializable {
         setCellValueFactory();
         presentAbsent.getItems().addAll(pA);
         loadallAttendance();
+        tableListener();
     }
 }

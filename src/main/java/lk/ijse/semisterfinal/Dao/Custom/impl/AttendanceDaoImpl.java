@@ -1,39 +1,24 @@
 package lk.ijse.semisterfinal.Dao.Custom.impl;
 
-import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Dao.Custom.AttendanceDao;
+import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class AttendanceDaoImpl {
+public class AttendanceDaoImpl implements AttendanceDao {
 
-    public static boolean addAttendance(AtendanceDTO dto) throws SQLException {
-        Connection connection = DbConnetion.getInstance().getConnection();
+    @Override
+    public boolean add(AtendanceDTO dto) throws SQLException, ClassNotFoundException {
+        return SqlUtil.test("INSERT INTO attendance VALUES (?,?,?,?)",dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),dto.getPOra());
 
-        String sql = "INSERT INTO attendance VALUES (?,?,?,?)";
-
-        try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-            pstm.setString(1, dto.getDate());
-            pstm.setString(2, dto.getEmployeeId());
-            pstm.setString(3, dto.getEmployeeName());
-            pstm.setString(4, dto.getPOra());
-
-            return pstm.executeUpdate() > 0;
-        }
     }
 
-    public static List<AtendanceDTO> getAllatendance() throws SQLException{
-        Connection connection = DbConnetion.getInstance().getConnection();
+    @Override
+    public ArrayList<AtendanceDTO> getAll() throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM attendance";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
-
+        ResultSet resultSet = SqlUtil.test("SELECT * FROM attendance");
         ArrayList<AtendanceDTO> dtoList = new ArrayList<>();
 
         while (resultSet.next()){
@@ -47,6 +32,21 @@ public class AttendanceDaoImpl {
             );
         }
         return dtoList;
+    }
+
+    @Override
+    public boolean Add(AtendanceDTO atendanceDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(AtendanceDTO atendanceDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(AtendanceDTO atendanceDTO) throws SQLException, ClassNotFoundException {
+        return false;
     }
 
 }

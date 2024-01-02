@@ -98,14 +98,16 @@ public class AttendanceController implements Initializable {
         String name = lblName.getText();
         String pOra = presentAbsent.getValue();
 
-        var dto = new AtendanceDTO(date,id,name,pOra);
-
         try {
+            AtendanceDTO dto = new AtendanceDTO(date,id,name,pOra);
+
             boolean isaddite = attendanceDao.add(dto);
             if (isaddite) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
                 loadAllEmployee();
             }
+            atendanceTm.getItems().add(new AtendanceTm(date,id,name,pOra));
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         } catch (ClassNotFoundException e) {
@@ -127,20 +129,20 @@ public class AttendanceController implements Initializable {
 
     private void loadallAttendance(){
 
-        ObservableList<AtendanceTm>  oblist = FXCollections.observableArrayList();
+        atendanceTm.getItems().clear();
 
         try{
             List<AtendanceDTO> dtoList = attendanceDao.getAll();
 
             for (AtendanceDTO dto: dtoList) {
-                oblist.add(new AtendanceTm(
+                atendanceTm.getItems().addAll(new AtendanceTm(
                         dto.getDate(),
                         dto.getEmployeeId(),
                         dto.getEmployeeName(),
                         dto.getPOra()
                 ));
             }
-            atendanceTm.setItems(obList);
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

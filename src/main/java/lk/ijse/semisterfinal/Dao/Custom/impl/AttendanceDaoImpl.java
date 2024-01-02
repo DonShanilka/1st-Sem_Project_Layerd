@@ -1,8 +1,8 @@
-package lk.ijse.semisterfinal.model;
+package lk.ijse.semisterfinal.Dao.Custom.impl;
 
-import com.ctc.wstx.osgi.WstxBundleActivator;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtendanceModel {
+public class AttendanceDaoImpl {
+
     public static boolean addAttendance(AtendanceDTO dto) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 

@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.Dao.Custom.AdminLoginDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.AdminLoginImpl;
 import lk.ijse.semisterfinal.dto.AdminDTO;
-import lk.ijse.semisterfinal.model.AdminRegisterModel;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,7 +19,6 @@ public class AdminregisterController {
     public AnchorPane admingegister;
 
     AdminLoginDao adminLoginDao = new  AdminLoginImpl();
-    public AdminMainDashbordController adminMainDashbordController = new AdminMainDashbordController();
 
     public AdminregisterController() throws SQLException {
     }
@@ -44,9 +42,10 @@ public class AdminregisterController {
             String name = enterAdminName.getText();
             String password = enterPassword.getText();
 
-            var dto = new AdminDTO(id,name,password);
+            AdminDTO dto = new AdminDTO(id,name,password);
 
             try {
+
                 boolean isRegister= adminLoginDao.registerAdmin(dto);
                 if (isRegister) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Register Successful").show();

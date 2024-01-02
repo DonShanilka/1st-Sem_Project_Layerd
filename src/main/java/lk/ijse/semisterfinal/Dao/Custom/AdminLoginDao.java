@@ -9,3 +9,6 @@ public interface AdminLoginDao {
     boolean registerAdmin(AdminDTO dto) throws SQLException, ClassNotFoundException;
 
 }
+
+
+

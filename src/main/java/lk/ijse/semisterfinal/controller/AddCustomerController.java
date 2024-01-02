@@ -9,6 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
+import lk.ijse.semisterfinal.Bo.Custom.impl.CustomerBoImpl;
+import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.CustomerDaoImpl;
 import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
@@ -47,7 +50,8 @@ public class AddCustomerController implements Initializable {
     public TextField txtCustId;
 
 
-    CustomerDaoImpl customerDao = new CustomerDaoImpl();
+    CustomerDao customerDao = new CustomerDaoImpl();
+    CustomerBo customerBo = new CustomerBoImpl();
 
     private void clearField() {
         txtCustId.setText("");
@@ -92,7 +96,7 @@ public class AddCustomerController implements Initializable {
             }
 
             CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
-            boolean isSave= customerDao.update(dto);
+            boolean isSave= customerBo.update(dto);
             if (isSave){
 
                 //CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
@@ -115,7 +119,7 @@ public class AddCustomerController implements Initializable {
 
         try{
             CusromerDTO id = new CusromerDTO(cid);
-            boolean isDelete = customerDao.delete(id);
+            boolean isDelete = customerBo.delete(id);
 
             if (isDelete){
                 CustomerAddTable.getSelectionModel().clearSelection();
@@ -146,7 +150,7 @@ public class AddCustomerController implements Initializable {
             }
 
             CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
-            boolean isSave= customerDao.Add(dto);
+            boolean isSave= customerBo.Add(dto);
             if (isSave){
 
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is Added").show();
@@ -185,7 +189,7 @@ public class AddCustomerController implements Initializable {
         CustomerAddTable.getItems().clear();
 
         try {
-            List <CusromerDTO> dtoList = customerDao.getAll();
+            List <CusromerDTO> dtoList = customerBo.getAll();
 
             for (CusromerDTO dto : dtoList) {
                 CustomerAddTable.getItems().addAll(

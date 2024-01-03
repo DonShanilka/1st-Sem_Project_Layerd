@@ -49,8 +49,6 @@ public class AddCustomerController implements Initializable {
     @FXML
     public TextField txtCustId;
 
-
-    CustomerDao customerDao = new CustomerDaoImpl();
     CustomerBo customerBo = new CustomerBoImpl();
 
     private void clearField() {
@@ -99,7 +97,6 @@ public class AddCustomerController implements Initializable {
             boolean isSave= customerBo.update(dto);
             if (isSave){
 
-                //CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is Added").show();
                 loadAllCustomer();
                 clearField();

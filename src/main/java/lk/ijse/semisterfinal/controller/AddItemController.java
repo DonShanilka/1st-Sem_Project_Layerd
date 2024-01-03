@@ -18,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import lk.ijse.semisterfinal.Bo.Custom.ItemBo;
+import lk.ijse.semisterfinal.Bo.Custom.impl.ItemBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
 import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
@@ -77,7 +79,8 @@ public class AddItemController implements Initializable {
 
     private String[] cata = {"Electrical", "Furniture", "Toys", "Exercise equipment", "Office equipment", "Other"};
 
-    ItemDao itemDao = new ItemDaoImpl();
+    //ItemDao itemDao = new ItemDaoImpl();
+    ItemBo itemBo = new ItemBoImpl();
 
     public void initialize() throws SQLException {
         totalItem();
@@ -142,7 +145,7 @@ public class AddItemController implements Initializable {
             }*/
 
             ItemDTO dto = new ItemDTO(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat);
-            boolean isaddite = itemDao.addItem(dto);
+            boolean isaddite = itemBo.addItem(dto);
 
             if (isaddite) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
@@ -165,7 +168,7 @@ public class AddItemController implements Initializable {
         ItemTm.getItems().clear();
 
         try {
-            ArrayList<ItemDTO> dtoList = itemDao.getAllItem();
+            ArrayList<ItemDTO> dtoList = itemBo.getAllItem();
 
             for (ItemDTO i : dtoList) {
                 ItemTm.getItems().add(new ItemTm(i.getItemCode(),i.getItemDetails(),i.getItemPrice(),i.getSupplierId(),i.getWarrantyPeriod(),i.getItemQty(),i.getCato()));
@@ -192,7 +195,7 @@ public class AddItemController implements Initializable {
             }*/
 
             ItemDTO dto = new ItemDTO(id,name,price,supid,warranty,Qty,cat);
-            boolean isUpdate = itemDao.updateItem(dto);
+            boolean isUpdate = itemBo.updateItem(dto);
 
             if (isUpdate){
                 ItemTm.getSelectionModel().clearSelection();
@@ -214,7 +217,7 @@ public class AddItemController implements Initializable {
 
         try {
             ItemDTO id = new ItemDTO(i_id);
-            boolean isDeleted = itemDao.deleteItem(id);
+            boolean isDeleted = itemBo.deleteItem(id);
 
             if(isDeleted) {
                 ItemTm.getSelectionModel().clearSelection();
@@ -250,7 +253,7 @@ public void loadAllSupplier() {
 
     ObservableList<String> obList = FXCollections.observableArrayList();
     try {
-        ArrayList<SupplierDTO> teacherDtos = itemDao.getAllSupplier();
+        ArrayList<SupplierDTO> teacherDtos = itemBo.getAllSupplier();
 
         for (SupplierDTO dto : teacherDtos) {
             obList.add(dto.getSupNic());

@@ -1,11 +1,13 @@
-package lk.ijse.semisterfinal.Dao.Custom;
+package lk.ijse.semisterfinal.Bo.Custom;
 
+import lk.ijse.semisterfinal.Bo.SupperBo;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface ItemDao {
+public interface ItemBo extends SupperBo {
 
     boolean addItem(ItemDTO dto) throws SQLException, ClassNotFoundException;
 

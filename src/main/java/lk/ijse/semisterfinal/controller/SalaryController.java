@@ -67,7 +67,6 @@ public class SalaryController implements Initializable {
     public TextField absent;
     public TextField prsent;
     public TextField oTinH;
-
     public Label lblTotalSalary;
 
     private ObservableList <SalaryTm> obList = FXCollections.observableArrayList();
@@ -298,8 +297,6 @@ public class SalaryController implements Initializable {
 
         calTotalSalary();
 
-        //txtTotalSalary.setText("Rs : " + total);
-        //(String.valueOf
     }
 
     public class Mail implements Runnable {

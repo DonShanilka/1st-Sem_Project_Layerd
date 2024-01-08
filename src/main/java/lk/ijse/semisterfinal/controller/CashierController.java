@@ -12,6 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
+import lk.ijse.semisterfinal.Dao.Custom.impl.OrderDaoImpl;
 import lk.ijse.semisterfinal.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.*;
 import lk.ijse.semisterfinal.model.*;
@@ -30,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static java.awt.SystemColor.text;
 
@@ -78,6 +81,8 @@ public class CashierController {
     private CustomerModel customerModel = new CustomerModel();
     private OrderModel orderModel = new OrderModel();
     private ObservableList<CartTm> obList = FXCollections.observableArrayList();
+
+    OrderDao orderDao = new OrderDaoImpl();
 
     public void initialize() {
         setDate();
@@ -290,17 +295,20 @@ public class CashierController {
 
             System.out.println("Place order from controller: " + cartTmList);
 
-            PlaceOrderDto placeOrderDto = new PlaceOrderDto(orderId, date, customerId, cartTmList);
+            //PlaceOrderDto placeOrderDto = new PlaceOrderDto(orderId, date, customerId, cartTmList);
 
         try {
-            boolean isSuccess = CashiyerModel.placeOrder(placeOrderDto);
+            //boolean isSuccess = CashiyerModel.placeOrder(placeOrderDto);
+            boolean b = orderDao.saveOrder(orderId, customerId, date);
+                   // tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(orderId,tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 
-            if (isSuccess) {
+
+            if (b) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         calculateBalance();

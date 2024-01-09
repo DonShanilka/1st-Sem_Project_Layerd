@@ -12,7 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Dao.Custom.CashiyerDao;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
+import lk.ijse.semisterfinal.Dao.Custom.impl.CashiyerDaoImpl;
 import lk.ijse.semisterfinal.Dao.Custom.impl.OrderDaoImpl;
 import lk.ijse.semisterfinal.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.*;
@@ -295,13 +297,19 @@ public class CashierController {
 
             System.out.println("Place order from controller: " + cartTmList);
 
-            //PlaceOrderDto placeOrderDto = new PlaceOrderDto(orderId, date, customerId, cartTmList);
+
+            CashiyerDao cashiyerDao = new CashiyerDaoImpl();
 
         try {
             //boolean isSuccess = CashiyerModel.placeOrder(placeOrderDto);
             boolean b = orderDao.saveOrder(orderId, customerId, date);
                    // tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(orderId,tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 
+           /* if (isSuccess){
+                new Alert(Alert.AlertType.CONFIRMATION, "Order Place").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Erro").show();
+            }*/
 
             if (b) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();

@@ -85,7 +85,7 @@ public class AdminMainDashbordController {
     }
 
     public void logOutOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/selectroll.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/adminlogin.fxml"));
         Scene scene = new Scene(anchorPane);
 
         Stage stage = (Stage) root.getScene().getWindow();

@@ -1,19 +1,20 @@
 package lk.ijse.semisterfinal.model;
 
+import lk.ijse.semisterfinal.Bo.Custom.CashiyerBo;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.dto.PlaceOrderDto;
 import java.sql.*;
 import java.time.LocalDate;
 import java.sql.Connection;
 
-public class CashiyerModel {
+public class CashiyerModel implements CashiyerBo {
 
     private static OrderModel orderModel = new OrderModel();
     private static ItemModel itemModel = new ItemModel();
     private static OrderDetailModel orderDetailModel = new OrderDetailModel();
 
 
-    public static boolean placeOrder(PlaceOrderDto placeOrderDto) throws SQLException {
+    public boolean placeOrder(PlaceOrderDto placeOrderDto) throws SQLException {
             System.out.println(placeOrderDto);
 
             String orderId = placeOrderDto.getOrderId();

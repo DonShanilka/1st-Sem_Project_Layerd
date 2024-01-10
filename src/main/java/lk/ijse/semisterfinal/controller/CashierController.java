@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.semisterfinal.Bo.Custom.CashiyerBo;
+import lk.ijse.semisterfinal.Bo.Custom.impl.CashiyerBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.CashiyerDao;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
@@ -85,6 +87,8 @@ public class CashierController {
     private ObservableList<CartTm> obList = FXCollections.observableArrayList();
 
     OrderDao orderDao = new OrderDaoImpl();
+
+    CashiyerBo cashiyerBo = new CashiyerBoImpl();
 
     public void initialize() {
         setDate();
@@ -298,25 +302,18 @@ public class CashierController {
             System.out.println("Place order from controller: " + cartTmList);
 
 
-            CashiyerDao cashiyerDao = new CashiyerDaoImpl();
+        var placeOrderDto = new PlaceOrderDto(orderId, date, customerId, cartTmList);
 
         try {
-            //boolean isSuccess = CashiyerModel.placeOrder(placeOrderDto);
-            boolean b = orderDao.saveOrder(orderId, customerId, date);
-                   // tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(orderId,tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 
-           /* if (isSuccess){
-                new Alert(Alert.AlertType.CONFIRMATION, "Order Place").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Erro").show();
-            }*/
+            boolean b = cashiyerBo.placeOrder(placeOrderDto);
 
             if (b) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         calculateBalance();

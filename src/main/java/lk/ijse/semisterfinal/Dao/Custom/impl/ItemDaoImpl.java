@@ -1,12 +1,19 @@
 package lk.ijse.semisterfinal.Dao.Custom.impl;
 
+import javafx.scene.control.TextField;
+import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
+import lk.ijse.semisterfinal.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemDaoImpl implements ItemDao {
 
@@ -79,6 +86,29 @@ public class ItemDaoImpl implements ItemDao {
         }
         return dtoList;
 
+    }
+
+    @Override
+    public boolean update(List<CartTm> cartTmList) throws SQLException {
+        for(CartTm tm : cartTmList) {
+            System.out.println("Item: " + tm);
+            if(!updateQty(tm.getItem_code(), Integer.parseInt(tm.getQty()))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean updateQty(String code, int qty) throws SQLException {
+        Connection connection = DbConnetion.getInstance().getConnection();
+
+        String sql = "UPDATE item SET qty = qty - ? WHERE item_code = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+
+        pstm.setInt(1, qty);
+        pstm.setString(2, code);
+
+        return pstm.executeUpdate() > 0;
     }
 
 }

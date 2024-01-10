@@ -1,23 +1,22 @@
-package lk.ijse.semisterfinal.Dao.Custom.impl;
+package lk.ijse.semisterfinal.Bo.Custom.impl;
 
+import javafx.scene.control.TextField;
+import lk.ijse.semisterfinal.Bo.Custom.CashiyerBo;
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.Dao.Custom.CashiyerDao;
 import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
 import lk.ijse.semisterfinal.Dao.Custom.OderDetailsDao;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
-import lk.ijse.semisterfinal.Tm.CartTm;
-import lk.ijse.semisterfinal.dto.CashiyerDTO;
+import lk.ijse.semisterfinal.Dao.Custom.impl.ItemDaoImpl;
+import lk.ijse.semisterfinal.Dao.Custom.impl.OrderDaoImpl;
+import lk.ijse.semisterfinal.Dao.Custom.impl.OrderDetailsDaoImpl;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.PlaceOrderDto;
-
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CashiyerDaoImpl implements CashiyerDao {
+public class CashiyerBoImpl implements CashiyerBo {
 
     private static OrderDao orderDao = new OrderDaoImpl();
     private static ItemDao itemDao = new ItemDaoImpl();
@@ -55,23 +54,4 @@ public class CashiyerDaoImpl implements CashiyerDao {
         return true;
     }
 
-    @Override
-    public ArrayList<CashiyerDTO> getAll() throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public boolean Add(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean update(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 }

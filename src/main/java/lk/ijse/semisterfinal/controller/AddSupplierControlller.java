@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
+import lk.ijse.semisterfinal.Bo.Custom.impl.SupplierBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.SupplierDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.SupplierDaoImpl;
@@ -61,7 +63,8 @@ public class AddSupplierControlller  {
     public TextField txtItemCode;
     public TextField txtSupNic;
 
-    SupplierDao supplierDao = new SupplierDaoImpl();
+    //SupplierDao supplierDao = new SupplierDaoImpl();
+    SupplierBo supplierBo = new SupplierBoImpl();
 
     String[] ca = { "Electrical", "Furniture", "Toys", "Exercise equipment", "Office equipment", "Other"};
 
@@ -133,7 +136,7 @@ public class AddSupplierControlller  {
 
             try {
                 SupplierDTO dto = new SupplierDTO(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory);
-                boolean addSup = supplierDao.addSuppliers(dto);
+                boolean addSup = supplierBo.add(dto);
 
                 if (addSup) {
                     supplierAddTable.getItems().add(new SupplierTm(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory));
@@ -153,7 +156,7 @@ public class AddSupplierControlller  {
 
         try {
             SupplierDTO id = new SupplierDTO(sid);
-            boolean isDeleted = supplierDao.deleteSupplier(id);
+            boolean isDeleted = supplierBo.delete(id);
             if(isDeleted) {
                 supplierAddTable.getSelectionModel().clearSelection();
 
@@ -187,7 +190,7 @@ public class AddSupplierControlller  {
 
         try {
             SupplierDTO dto = new SupplierDTO(supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory,supId);
-            boolean updateSup = supplierDao.updateSupplier(dto);
+            boolean updateSup = supplierBo.update(dto);
 
             if (updateSup) {
                 supplierAddTable.getItems().add(new SupplierTm(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory));
@@ -210,7 +213,7 @@ public class AddSupplierControlller  {
 
         supplierAddTable.getItems().clear();
         try {
-            ArrayList <SupplierDTO> allSup = supplierDao.getAllSupplier();
+            ArrayList <SupplierDTO> allSup = supplierBo.getAll();
             for (SupplierDTO i : allSup){
                 supplierAddTable.getItems().add(new SupplierTm(i.getSupNic(), i.getSupName(), i.getMobile(),i.getEmail(),i.getCoName(),i.getCoAddress(),i.getItemcode(),i.getItemName(),i.getQty(),i.getBNum(),i.getCatagory()));
             }
@@ -222,7 +225,6 @@ public class AddSupplierControlller  {
 
         public void totalSupplier() throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
-
         String sql = "SELECT COUNT(supplier_id) FROM supplier";
 
         String totalSup = null;

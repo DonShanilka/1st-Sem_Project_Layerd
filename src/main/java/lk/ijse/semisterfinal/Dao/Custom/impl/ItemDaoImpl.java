@@ -18,20 +18,20 @@ import java.util.List;
 public class ItemDaoImpl implements ItemDao {
 
     @Override
-    public boolean addItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(ItemDTO dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("INSERT INTO item VALUES(?,?,?,?,?,?,?)",dto.getItemCode(),dto.getItemDetails(),dto.getItemPrice(),
                 dto.getSupplierId(),dto.getWarrantyPeriod(),dto.getItemQty(),dto.getCato());
     }
 
 
     @Override
-    public boolean deleteItem(ItemDTO id) throws SQLException, ClassNotFoundException {
+    public boolean delete(ItemDTO id) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("DELETE FROM item WHERE item_code = ?",id.getItemCode());
     }
 
 
     @Override
-    public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("UPDATE item SET item_name = ?, item_price = ?, supplier_id = ? , warranty =?, qty =?, catogary =?  WHERE item_code = ?",
                 dto.getItemDetails(),dto.getItemPrice(),dto.getSupplierId(),dto.getWarrantyPeriod(),dto.getItemQty(),dto.getCato(),dto.getItemCode());
 
@@ -39,7 +39,7 @@ public class ItemDaoImpl implements ItemDao {
 
 
     @Override
-    public ArrayList<ItemDTO> getAllItem() throws SQLException, ClassNotFoundException {
+    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT * FROM Item");
         ArrayList <ItemDTO> dtoList = new ArrayList<>();

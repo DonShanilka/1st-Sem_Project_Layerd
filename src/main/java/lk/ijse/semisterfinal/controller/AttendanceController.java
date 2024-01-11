@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.semisterfinal.Bo.Custom.AttendanceBo;
+import lk.ijse.semisterfinal.Bo.Custom.impl.AttendanceBoImpl;
 import lk.ijse.semisterfinal.Dao.Custom.AttendanceDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.AttendanceDaoImpl;
 import lk.ijse.semisterfinal.Tm.AtendanceTm;
@@ -42,7 +44,7 @@ public class AttendanceController implements Initializable {
     private AddEmployeeModel employeeModel = new AddEmployeeModel();
     private ObservableList<AtendanceTm> obList = FXCollections.observableArrayList();
 
-    private AttendanceDao attendanceDao = new  AttendanceDaoImpl();
+    AttendanceBo attendanceBo = new AttendanceBoImpl();
 
     private String[] pA = {"Present" , "Absent"};
 
@@ -101,7 +103,7 @@ public class AttendanceController implements Initializable {
         try {
             AtendanceDTO dto = new AtendanceDTO(date,id,name,pOra);
 
-            boolean isaddite = attendanceDao.add(dto);
+            boolean isaddite = attendanceBo.add(dto);
             if (isaddite) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
                 loadAllEmployee();
@@ -132,7 +134,7 @@ public class AttendanceController implements Initializable {
         atendanceTm.getItems().clear();
 
         try{
-            List<AtendanceDTO> dtoList = attendanceDao.getAll();
+            List<AtendanceDTO> dtoList = attendanceBo.getAll();
 
             for (AtendanceDTO dto: dtoList) {
                 atendanceTm.getItems().addAll(new AtendanceTm(

@@ -14,22 +14,22 @@ public class ItemBoImpl implements ItemBo {
     ItemDao itemDao = new ItemDaoImpl();
 
     @Override
-    public boolean addItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(ItemDTO dto) throws SQLException, ClassNotFoundException {
         return itemDao.addItem(dto);
     }
 
     @Override
-    public boolean deleteItem(ItemDTO id) throws SQLException, ClassNotFoundException {
+    public boolean delete(ItemDTO id) throws SQLException, ClassNotFoundException {
         return itemDao.deleteItem(id);
     }
 
     @Override
-    public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
         return itemDao.updateItem(dto);
     }
 
     @Override
-    public ArrayList<ItemDTO> getAllItem() throws SQLException, ClassNotFoundException {
+    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         return itemDao.getAllItem();
     }
 

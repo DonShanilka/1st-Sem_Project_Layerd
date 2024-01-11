@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public interface SalaryBo extends SupperBo {
 
-    boolean addSalary(SalaryDTO dto) throws SQLException, ClassNotFoundException;
+    boolean add(SalaryDTO dto) throws SQLException, ClassNotFoundException;
 
-    ArrayList<SalaryDTO> getAllSalary() throws SQLException, ClassNotFoundException;
+    ArrayList<SalaryDTO> getAll() throws SQLException, ClassNotFoundException;
 
     AtendanceDTO getABcount(SalaryDTO id) throws SQLException, ClassNotFoundException;
 

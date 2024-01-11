@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public interface SupplierBo extends SupperBo {
 
-    boolean addSuppliers(SupplierDTO dto) throws SQLException, ClassNotFoundException;
-    boolean deleteSupplier(SupplierDTO id) throws SQLException, ClassNotFoundException;
-    boolean updateSupplier(SupplierDTO dto) throws SQLException, ClassNotFoundException;
-    ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException;
+    boolean add(SupplierDTO dto) throws SQLException, ClassNotFoundException;
+    boolean delete(SupplierDTO id) throws SQLException, ClassNotFoundException;
+    boolean update(SupplierDTO dto) throws SQLException, ClassNotFoundException;
+    ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException;
 
 }

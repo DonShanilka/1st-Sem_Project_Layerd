@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 public interface ItemBo extends SupperBo {
 
-    boolean addItem(ItemDTO dto) throws SQLException, ClassNotFoundException;
+    boolean add(ItemDTO dto) throws SQLException, ClassNotFoundException;
 
-    boolean deleteItem(ItemDTO id) throws SQLException, ClassNotFoundException;
+    boolean delete(ItemDTO id) throws SQLException, ClassNotFoundException;
 
-    boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException;
+    boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException;
 
-    ArrayList<ItemDTO> getAllItem() throws SQLException, ClassNotFoundException;
+    ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException;
 
     ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException;
 

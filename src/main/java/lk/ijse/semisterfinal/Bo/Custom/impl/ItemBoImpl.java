@@ -38,4 +38,9 @@ public class ItemBoImpl implements ItemBo {
     public ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException {
         return itemDao.getAllSupplier();
     }
+
+    @Override
+    public ItemDTO searchItemId(String id) throws SQLException {
+        return itemDao.searchItemId(id);
+    }
 }

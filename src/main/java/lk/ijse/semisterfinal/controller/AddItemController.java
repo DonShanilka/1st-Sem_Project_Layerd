@@ -12,27 +12,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import lk.ijse.semisterfinal.Bo.Custom.ItemBo;
+import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.ItemBoImpl;
+import lk.ijse.semisterfinal.Bo.Custom.impl.SupplierBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
-import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
-import lk.ijse.semisterfinal.Dao.Custom.impl.CustomerDaoImpl;
-import lk.ijse.semisterfinal.Dao.Custom.impl.ItemDaoImpl;
-import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.Tm.ItemTm;
-import lk.ijse.semisterfinal.Tm.SupplierTm;
-import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
-import lk.ijse.semisterfinal.model.ItemModel;
-import lk.ijse.semisterfinal.model.SupplierModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -81,6 +71,7 @@ public class AddItemController implements Initializable {
 
     //ItemDao itemDao = new ItemDaoImpl();
     ItemBo itemBo = new ItemBoImpl();
+    SupplierBo supplierBo = new SupplierBoImpl();
 
     public void initialize() throws SQLException {
         totalItem();
@@ -242,9 +233,11 @@ public class AddItemController implements Initializable {
         String id = (String) comsupid.getValue();
 
         try {
-            SupplierDTO dto = SupplierModel.searchsupplier(id);
+            SupplierDTO dto = supplierBo.searchsupplier(id);
             comsupid.setValue(dto.getSupNic());
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

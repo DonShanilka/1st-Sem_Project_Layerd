@@ -1,10 +1,15 @@
 package lk.ijse.semisterfinal.Bo.Custom.impl;
 
 import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
+import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.SupplierDao;
 import lk.ijse.semisterfinal.Dao.DaoFactory;
+import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -31,4 +36,9 @@ public class SupplierBoImpl implements SupplierBo {
     public ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException {
         return supplierDao.getAll();
     }
+
+    public SupplierDTO searchsupplier(String id) throws SQLException, ClassNotFoundException {
+        return supplierDao.searchsupplier(id);
+    }
+
 }

@@ -13,8 +13,8 @@ public interface SalaryDao extends CrudDAO<SalaryDTO> {
 
     ArrayList<SalaryDTO> getAll() throws SQLException, ClassNotFoundException;
 
-    AtendanceDTO getABcount(SalaryDTO id) throws SQLException, ClassNotFoundException;
+    AtendanceDTO getABcount(String id) throws SQLException, ClassNotFoundException;
 
-    AtendanceDTO getPRcount(SalaryDTO id) throws SQLException, ClassNotFoundException;
+    AtendanceDTO getPRcount(String id) throws SQLException, ClassNotFoundException;
 
 }

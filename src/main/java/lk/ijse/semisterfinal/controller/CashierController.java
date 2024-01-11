@@ -12,7 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.Bo.Custom.CashiyerBo;
+import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
+import lk.ijse.semisterfinal.Bo.Custom.ItemBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.CashiyerBoImpl;
+import lk.ijse.semisterfinal.Bo.Custom.impl.CustomerBoImpl;
+import lk.ijse.semisterfinal.Bo.Custom.impl.ItemBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.CashiyerDao;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
@@ -20,7 +24,6 @@ import lk.ijse.semisterfinal.Dao.Custom.impl.CashiyerDaoImpl;
 import lk.ijse.semisterfinal.Dao.Custom.impl.OrderDaoImpl;
 import lk.ijse.semisterfinal.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.*;
-import lk.ijse.semisterfinal.model.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -81,14 +84,13 @@ public class CashierController {
     @FXML
     private TableColumn<?, ?> colQty;
 
-    private ItemModel itemModel = new ItemModel();
-    private CustomerModel customerModel = new CustomerModel();
-    private OrderModel orderModel = new OrderModel();
+    private ItemBo itemBo = new ItemBoImpl();
+    private CustomerBo customerBo = new CustomerBoImpl();
+    private CashiyerBo cashiyerBo = new CashiyerBoImpl();
     private ObservableList<CartTm> obList = FXCollections.observableArrayList();
 
     OrderDao orderDao = new OrderDaoImpl();
 
-    CashiyerBo cashiyerBo = new CashiyerBoImpl();
 
     public void initialize() {
         setDate();
@@ -116,7 +118,7 @@ public class CashierController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<ItemDTO> idList = itemModel.loadAllItems();
+            List<ItemDTO> idList = itemBo.getAll();
 
             for (ItemDTO dto : idList) {
                 obList.add(dto.getItemCode());
@@ -125,6 +127,8 @@ public class CashierController {
             cmbItemCode.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -132,12 +136,14 @@ public class CashierController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CusromerDTO> idList = customerModel.getAllCustomer();
+            List<CusromerDTO> idList = customerBo.getAll();
             for (CusromerDTO dto : idList) {
                 obList.add(dto.getTxtCustMobile());
             }
             cmbCustomerId.setItems(obList);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -146,7 +152,7 @@ public class CashierController {
         System.out.println("in generate next id ");
         String orderId;
         try {
-            String lastId = orderModel.getLastId();
+            String lastId = orderDao.getLastId();
             System.out.println("Last id is : " + lastId);
             if (lastId == null) {
                 orderId = "O0001";
@@ -174,7 +180,7 @@ public class CashierController {
         String id = cmbCustomerId.getValue();
 
         try {
-            CusromerDTO dto = CustomerModel.searchCustomer(id);
+            CusromerDTO dto = customerBo.searchCustomer(id);
             lblCustomerName.setText(dto.getTxtCustName());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -185,7 +191,7 @@ public class CashierController {
         String id = cmbItemCode.getValue();
 
         try {
-            ItemDTO dto = ItemModel.searchItemId(id);
+            ItemDTO dto = itemBo.searchItemId(id);
             lblItemName.setText(dto.getItemDetails());
             lblUnitPrice.setText(String.valueOf(dto.getItemPrice()));
             lblQtyOnHand.setText(String.valueOf(dto.getItemQty()));

@@ -13,4 +13,6 @@ public interface CustomerDao extends CrudDAO <CusromerDTO> {
     boolean update(CusromerDTO dto) throws SQLException, ClassNotFoundException;
 
     ArrayList <CusromerDTO> getAll() throws SQLException, ClassNotFoundException;
+
+    CusromerDTO searchCustomer(String id) throws SQLException;
 }

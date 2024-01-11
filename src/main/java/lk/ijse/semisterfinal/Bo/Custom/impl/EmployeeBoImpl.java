@@ -32,4 +32,9 @@ public class EmployeeBoImpl implements EmployeeBo {
     public boolean delete(AddEmployeeDTO id) throws SQLException, ClassNotFoundException {
         return employeeDao.delete(id);
     }
+
+    @Override
+    public AddEmployeeDTO searchEmployee(String id) throws SQLException, ClassNotFoundException {
+        return employeeDao.searchEmployee(id);
+    }
 }

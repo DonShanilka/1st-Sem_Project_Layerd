@@ -1,9 +1,13 @@
 package lk.ijse.semisterfinal.Dao.Custom.impl;
 
 
+import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,6 +63,32 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public boolean delete(AddEmployeeDTO id) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("DELETE FROM employee WHERE employee_id = ?",id.getEmployeeId());
 
+    }
+
+    public AddEmployeeDTO searchEmployee(String id) throws SQLException, ClassNotFoundException {
+        /*Connection connection = DbConnetion.getInstance().getConnection();
+
+        String sql = "SELECT * FROM employee WHERE employee_id = ? ";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1, id);*/
+
+        ResultSet resultSet = SqlUtil.test( "SELECT * FROM employee WHERE employee_id = ? ");
+
+        AddEmployeeDTO dto = null;
+
+        if (resultSet.next()){
+            String eid = resultSet.getString(1);
+            String name = resultSet.getString(2);
+            String address = resultSet.getString(3);
+            int mobile = Integer.parseInt(String.valueOf(resultSet.getInt(4)));
+            String date = resultSet.getString(5);
+            String email = resultSet.getString(7);
+            String position = resultSet.getString(6);
+            double bSalary = resultSet.getDouble(10);
+
+            dto = new AddEmployeeDTO(eid,name,address,mobile,date,email,position,bSalary);
+        }
+        return dto;
     }
 
 

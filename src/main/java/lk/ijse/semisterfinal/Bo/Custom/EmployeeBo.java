@@ -16,4 +16,6 @@ public interface EmployeeBo extends SupperBo {
 
     boolean delete(AddEmployeeDTO id) throws SQLException, ClassNotFoundException;
 
+    AddEmployeeDTO searchEmployee(String id) throws SQLException, ClassNotFoundException;
+
 }

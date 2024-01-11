@@ -23,4 +23,6 @@ public interface ItemDao extends CrudDAO<ItemDTO> {
     boolean update(List<CartTm> cartTmList) throws SQLException;
 
     boolean updateQty(String code, int qty) throws SQLException;
+
+    ItemDTO searchItemId(String id) throws SQLException;
 }

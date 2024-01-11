@@ -12,5 +12,6 @@ public interface SupplierDao extends CrudDAO<SupplierDTO> {
     boolean update(SupplierDTO dto) throws SQLException, ClassNotFoundException;
     ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException;
 
+    SupplierDTO searchsupplier(String id) throws SQLException, ClassNotFoundException;
 
 }

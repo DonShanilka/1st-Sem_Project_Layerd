@@ -24,12 +24,12 @@ public class SalaryBoImpl implements SalaryBo {
     }
 
     @Override
-    public AtendanceDTO getABcount(SalaryDTO id) throws SQLException, ClassNotFoundException {
+    public AtendanceDTO getABcount(String id) throws SQLException, ClassNotFoundException {
         return salaryDao.getABcount(id);
     }
 
     @Override
-    public AtendanceDTO getPRcount(SalaryDTO id) throws SQLException, ClassNotFoundException {
+    public AtendanceDTO getPRcount(String id) throws SQLException, ClassNotFoundException {
         return salaryDao.getPRcount(id);
     }
 }

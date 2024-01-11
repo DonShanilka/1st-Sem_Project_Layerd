@@ -33,7 +33,7 @@ public class DaoFactory {
             case ORDERS:
                 return new OrderDaoImpl();
             case ORDERDETAIL:
-                return (SupperDAO) new OrderDetailsDaoImpl();
+                return new OrderDetailsDaoImpl();
             case SALARY:
                 return new SalaryDaoImpl();
             case SUPPLIER:

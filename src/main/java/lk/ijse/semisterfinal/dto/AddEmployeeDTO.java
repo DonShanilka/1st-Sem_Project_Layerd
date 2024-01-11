@@ -51,4 +51,16 @@ public class AddEmployeeDTO {
     public AddEmployeeDTO(String eid) {
         employeeId = eid;
     }
+
+    public AddEmployeeDTO(String eid, String name, String address, int mobile, String date, String email, String position, double bSalary) {
+        this.employeeId = eid;
+        this.EmployeeName = name;
+        this.EmpAddress = address;
+        this.EmployeePhone = mobile;
+        this.empDate = date;
+        this.empPosition = position;
+        this.email = email;
+        this.BasicSalary = bSalary;
+
+    }
 }

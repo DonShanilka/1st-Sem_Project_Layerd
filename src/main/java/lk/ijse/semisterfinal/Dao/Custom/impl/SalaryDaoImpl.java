@@ -55,8 +55,18 @@ public class SalaryDaoImpl implements SalaryDao {
         return dtoList;
     }
 
+    @Override
+    public AtendanceDTO getABcount(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 
     @Override
+    public AtendanceDTO getPRcount(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+
+    /*@Override
     public AtendanceDTO getABcount(SalaryDTO id) throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Absent'",id.getAbcount());
@@ -85,6 +95,6 @@ public class SalaryDaoImpl implements SalaryDao {
             dto = new AtendanceDTO(pr);
         }
         return dto;
-    }
+    }*/
 
 }

@@ -1,40 +1,21 @@
 package lk.ijse.semisterfinal.controller;
 
-import com.jfoenix.controls.JFXComboBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.SupplierBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.Dao.Custom.SupplierDao;
-import lk.ijse.semisterfinal.Dao.Custom.impl.SupplierDaoImpl;
-import lk.ijse.semisterfinal.Tm.CustomerTm;
 import lk.ijse.semisterfinal.Tm.SupplierTm;
-import lk.ijse.semisterfinal.dto.CusromerDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
-import lk.ijse.semisterfinal.model.CustomerModel;
-import lk.ijse.semisterfinal.model.SupplierModel;
-
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class AddSupplierControlller  {
     public TextField txtSupName;

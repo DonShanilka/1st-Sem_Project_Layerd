@@ -13,4 +13,6 @@ public interface SupplierBo extends SupperBo {
     boolean update(SupplierDTO dto) throws SQLException, ClassNotFoundException;
     ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException;
 
+    SupplierDTO searchsupplier(String id) throws SQLException, ClassNotFoundException;
+
 }

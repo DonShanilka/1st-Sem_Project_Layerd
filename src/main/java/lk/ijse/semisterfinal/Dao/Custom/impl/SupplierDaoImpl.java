@@ -3,6 +3,8 @@ package lk.ijse.semisterfinal.Dao.Custom.impl;
 import lk.ijse.semisterfinal.Dao.Custom.SupplierDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,6 +61,33 @@ public class SupplierDaoImpl implements SupplierDao{
 
     }
 
+    @Override
+    public SupplierDTO searchsupplier(String id) throws SQLException, ClassNotFoundException {
+        PreparedStatement pstm = SqlUtil.test("SELECT * FROM supplier WHERE supplier_id = ? ");
+        pstm.setString(1, id);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        SupplierDTO dto = null;
+
+        if (resultSet.next()){
+            String supId = resultSet.getString(1);
+            String supName = resultSet.getString(2);
+            int mobile = resultSet.getInt(3);
+            String email = resultSet.getString(4);
+            String coName = resultSet.getString(5);
+            String coAddress = resultSet.getString(6);
+            int itemcode = resultSet.getInt(7);
+            String itemName = resultSet.getString(8);
+            int qty = resultSet.getInt(9);
+            String bNum = resultSet.getString(10);
+            String catagory = resultSet.getString(11);
+
+            dto = new SupplierDTO(supId,supName,mobile,email,coName,coAddress,itemcode,itemName,qty,bNum,catagory);
+
+        }
+        return dto;
+    }
 
 
 }

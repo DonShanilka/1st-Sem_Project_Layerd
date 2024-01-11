@@ -19,4 +19,6 @@ public interface ItemBo extends SupperBo {
 
     ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException;
 
+    ItemDTO searchItemId(String id) throws SQLException;
+
 }

@@ -16,4 +16,6 @@ public interface CustomerBo extends SupperBo {
 
     ArrayList<CusromerDTO> getAll() throws SQLException, ClassNotFoundException;
 
+    CusromerDTO searchCustomer(String id) throws SQLException;
+
 }

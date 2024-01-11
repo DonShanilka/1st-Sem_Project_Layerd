@@ -12,24 +12,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import lk.ijse.semisterfinal.DB.DbConnetion;
+import lk.ijse.semisterfinal.Bo.Custom.EmployeeBo;
+import lk.ijse.semisterfinal.Bo.Custom.SalaryBo;
+import lk.ijse.semisterfinal.Bo.Custom.impl.EmployeeBoImpl;
+import lk.ijse.semisterfinal.Bo.Custom.impl.SalaryBoImpl;
 import lk.ijse.semisterfinal.Dao.Custom.SalaryDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.SalaryDaoImpl;
-import lk.ijse.semisterfinal.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.Tm.SalaryTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
 import lk.ijse.semisterfinal.dto.SalaryDTO;
-import lk.ijse.semisterfinal.model.AddEmployeeModel;
-import lk.ijse.semisterfinal.model.SalaryModel;
-
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -71,7 +66,8 @@ public class SalaryController implements Initializable {
 
     private ObservableList <SalaryTm> obList = FXCollections.observableArrayList();
 
-    SalaryDao salaryDao = new SalaryDaoImpl();
+    SalaryBo salaryBo = new SalaryBoImpl();
+    EmployeeBo employeeBo = new EmployeeBoImpl();
 
     public void initialize() {
         date.setPromptText(String.valueOf(LocalDate.now()));
@@ -126,7 +122,7 @@ public class SalaryController implements Initializable {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<AddEmployeeDTO> idList = AddEmployeeModel.getAllEmployee();
+            List<AddEmployeeDTO> idList = employeeBo.getAll();
 
             for (AddEmployeeDTO dto : idList) {
                 obList.add(dto.getEmployeeId());
@@ -135,21 +131,25 @@ public class SalaryController implements Initializable {
             comEmpId.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void comEmpIdOnAction(ActionEvent event) {
         String id = comEmpId.getValue();
         try {
-            AddEmployeeDTO dto = AddEmployeeModel.searchEmployee(id);
-            AtendanceDTO dto1 = SalaryModel.getABcount(id);
-            AtendanceDTO dto2 = SalaryModel.getPRcount(id);
+            AddEmployeeDTO dto = employeeBo.searchEmployee(id);
+            AtendanceDTO dto1 = salaryBo.getABcount(id);
+            AtendanceDTO dto2 = salaryBo.getPRcount(id);
             lblName.setText(dto.getEmployeeName());
             salary.setText(String.valueOf(dto.getBasicSalary()));
             absent.setText(dto1.getAbInt());
             prsent.setText(dto2.getAbInt());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -158,7 +158,7 @@ public class SalaryController implements Initializable {
         salaryTm.getItems().clear();
 
         try {
-            List<SalaryDTO> dtoList = salaryDao.getAll();
+            List<SalaryDTO> dtoList = salaryBo.getAll();
 
             for (SalaryDTO dto : dtoList) {
 
@@ -252,7 +252,7 @@ public class SalaryController implements Initializable {
 
         try {
             SalaryDTO dto = new SalaryDTO(amount,id,Name,date1,otHcount,pay1h,bonase,epf,etf,prCount,abcount,totalsalary);
-            boolean isaddite = salaryDao.add(dto);
+            boolean isaddite = salaryBo.add(dto);
 
             if (isaddite) {
                 salaryTm.getItems().add(new SalaryTm(dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),dto.getSalary(),dto.getOtcount(),dto.getPay1h(), dto.getBonase(),dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary()));

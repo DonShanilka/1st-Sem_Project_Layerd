@@ -8,16 +8,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.Bo.Custom.AttendanceBo;
+import lk.ijse.semisterfinal.Bo.Custom.EmployeeBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.AttendanceBoImpl;
-import lk.ijse.semisterfinal.Dao.Custom.AttendanceDao;
-import lk.ijse.semisterfinal.Dao.Custom.impl.AttendanceDaoImpl;
+import lk.ijse.semisterfinal.Bo.Custom.impl.EmployeeBoImpl;
 import lk.ijse.semisterfinal.Tm.AtendanceTm;
-import lk.ijse.semisterfinal.Tm.CustomerTm;
-import lk.ijse.semisterfinal.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
-import lk.ijse.semisterfinal.model.AddEmployeeModel;
-import lk.ijse.semisterfinal.model.AtendanceModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -41,10 +37,10 @@ public class AttendanceController implements Initializable {
     public ChoiceBox <String> presentAbsent;
     public TableColumn <?,?> colPa;
 
-    private AddEmployeeModel employeeModel = new AddEmployeeModel();
-    private ObservableList<AtendanceTm> obList = FXCollections.observableArrayList();
+
 
     AttendanceBo attendanceBo = new AttendanceBoImpl();
+    EmployeeBo employeeBo = new EmployeeBoImpl();
 
     private String[] pA = {"Present" , "Absent"};
 
@@ -81,13 +77,15 @@ public class AttendanceController implements Initializable {
     private void loadAllEmployee() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<AddEmployeeDTO> teacherDtos = employeeModel.getAllEmployee();
+            ArrayList<AtendanceDTO> teacherDtos = attendanceBo.getAll();
 
-            for (AddEmployeeDTO dto : teacherDtos) {
+            for (AtendanceDTO dto : teacherDtos) {
                 obList.add(dto.getEmployeeId());
             }
             comEmpId.setItems(obList);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -121,10 +119,12 @@ public class AttendanceController implements Initializable {
     public void cmbEmpIdOnAction(ActionEvent event) {
         String id = (String) comEmpId.getValue();
         try {
-            AddEmployeeDTO dto = AddEmployeeModel.searchEmployee(id);
+            AddEmployeeDTO dto = employeeBo.searchEmployee(id);
             lblName.setText(dto.getEmployeeName());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 

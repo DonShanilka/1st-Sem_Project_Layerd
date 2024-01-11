@@ -1,8 +1,12 @@
 package lk.ijse.semisterfinal.Dao.Custom.impl;
 
+import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,6 +48,29 @@ public class CustomerDaoImpl implements CustomerDao {
         }
 
         return getAllCustomer;
+    }
+
+    public CusromerDTO searchCustomer(String id) throws SQLException {
+        Connection connection = DbConnetion.getInstance().getConnection();
+
+        String sql = "SELECT * FROM customer WHERE customer_id = ? ";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1, id);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        CusromerDTO dto = null;
+
+        if (resultSet.next()){
+            String cust_id = resultSet.getString(1);
+            String cust_address = resultSet.getString(2);
+            String cust_name = resultSet.getString(3);
+            String cust_mobile = resultSet.getString(4);
+            String payment = resultSet.getString(5);
+
+            dto = new CusromerDTO(cust_id,cust_address,cust_name,cust_mobile,payment);
+        }
+        return dto;
     }
 
 

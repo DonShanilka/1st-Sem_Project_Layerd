@@ -158,7 +158,7 @@ public class SalaryController implements Initializable {
         salaryTm.getItems().clear();
 
         try {
-            List<SalaryDTO> dtoList = salaryDao.getAllSalary();
+            List<SalaryDTO> dtoList = salaryDao.getAll();
 
             for (SalaryDTO dto : dtoList) {
 
@@ -252,7 +252,7 @@ public class SalaryController implements Initializable {
 
         try {
             SalaryDTO dto = new SalaryDTO(amount,id,Name,date1,otHcount,pay1h,bonase,epf,etf,prCount,abcount,totalsalary);
-            boolean isaddite = salaryDao.addSalary(dto);
+            boolean isaddite = salaryDao.add(dto);
 
             if (isaddite) {
                 salaryTm.getItems().add(new SalaryTm(dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),dto.getSalary(),dto.getOtcount(),dto.getPay1h(), dto.getBonase(),dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary()));

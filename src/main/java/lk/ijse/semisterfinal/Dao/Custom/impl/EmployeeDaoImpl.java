@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
-    public boolean Add(AddEmployeeDTO e) throws SQLException, ClassNotFoundException {
+    public boolean add(AddEmployeeDTO e) throws SQLException, ClassNotFoundException {
        return SqlUtil.test("INSERT INTO employee VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),
                e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe());
 

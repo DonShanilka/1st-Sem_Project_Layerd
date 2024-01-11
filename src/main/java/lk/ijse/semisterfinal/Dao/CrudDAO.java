@@ -7,7 +7,7 @@ public interface CrudDAO<T> extends SupperDAO{
 
     ArrayList<T> getAll() throws SQLException, ClassNotFoundException;
 
-    boolean Add(T t) throws SQLException, ClassNotFoundException;
+    boolean add(T t) throws SQLException, ClassNotFoundException;
 
     boolean update(T t) throws SQLException, ClassNotFoundException;
 

@@ -61,7 +61,7 @@ public class CashiyerDaoImpl implements CashiyerDao {
     }
 
     @Override
-    public boolean Add(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
+    public boolean add(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
         return false;
     }
 

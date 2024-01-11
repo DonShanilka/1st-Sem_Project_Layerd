@@ -4,6 +4,7 @@ import lk.ijse.semisterfinal.Dao.Custom.AdminLoginDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AdminDTO;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AdminLoginImpl implements AdminLoginDao {
 
@@ -13,6 +14,25 @@ public class AdminLoginImpl implements AdminLoginDao {
 
     }
 
+    @Override
+    public ArrayList<AdminDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean add(AdminDTO adminDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(AdminDTO adminDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(AdminDTO adminDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }
 
 

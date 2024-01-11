@@ -5,7 +5,7 @@ import lk.ijse.semisterfinal.Tm.CartTm;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface OderDetailsDao {
+public interface OderDetailsDao  {
 
     boolean saveOrderDetails(String orderId, List<CartTm> cartTmList) throws SQLException, ClassNotFoundException;
 

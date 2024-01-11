@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CustomerDaoImpl implements CustomerDao {
 
     @Override
-    public boolean Add(CusromerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(CusromerDTO dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("INSERT INTO customer VALUES(?,?,?,?,?,?)",dto.getTxtCustId(),dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),dto.getTxtCustPayment());
 
     }

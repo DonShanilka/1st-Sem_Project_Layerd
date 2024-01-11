@@ -34,10 +34,6 @@ public class AttendanceDaoImpl implements AttendanceDao {
         return dtoList;
     }
 
-    @Override
-    public boolean Add(AtendanceDTO atendanceDTO) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 
     @Override
     public boolean update(AtendanceDTO atendanceDTO) throws SQLException, ClassNotFoundException {

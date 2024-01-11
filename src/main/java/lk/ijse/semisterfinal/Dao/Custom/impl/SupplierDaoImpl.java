@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class SupplierDaoImpl implements SupplierDao{
     @Override
-    public boolean addSuppliers(SupplierDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(SupplierDTO dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("INSERT INTO supplier VALUES(?,?,?,?,?,?,?,?,?,?,?)",
                 dto.getSupNic(),dto.getSupName(),dto.getMobile(),dto.getEmail(),dto.getCoName(),dto.getCoAddress(),dto.getItemcode(),
                 dto.getItemName(),dto.getQty(),dto.getBNum(),dto.getCatagory());
@@ -17,14 +17,14 @@ public class SupplierDaoImpl implements SupplierDao{
     }
 
     @Override
-    public boolean deleteSupplier(SupplierDTO id) throws SQLException, ClassNotFoundException {
+    public boolean delete(SupplierDTO id) throws SQLException, ClassNotFoundException {
        return SqlUtil.test("DELETE FROM supplier WHERE supplier_id = ?",id.getSupNic());
 
     }
 
 
     @Override
-    public boolean updateSupplier(SupplierDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(SupplierDTO dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("UPDATE supplier SET supplier_name = ?,mobile = ?, email = ?, company_name = ?, company_address = ?, item_code = ?, item_name = ?, qty = ?, bacth_num = ?, item_catagory = ? WHERE supplier_id = ?",
                 dto.getSupName(),dto.getMobile(),dto.getEmail(),dto.getCoName(),dto.getCoAddress(),dto.getItemcode(),
                 dto.getItemName(),dto.getQty(),dto.getBNum(),dto.getCatagory(),dto.getSupNic());
@@ -32,7 +32,7 @@ public class SupplierDaoImpl implements SupplierDao{
     }
 
     @Override
-    public ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException {
+    public ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT * FROM supplier");
 

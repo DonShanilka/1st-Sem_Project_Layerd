@@ -1,12 +1,9 @@
 package lk.ijse.semisterfinal.Dao.Custom.impl;
 
-import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.SalaryDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
 import lk.ijse.semisterfinal.dto.SalaryDTO;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,14 +12,24 @@ import java.util.ArrayList;
 public class SalaryDaoImpl implements SalaryDao {
 
     @Override
-    public boolean addSalary(SalaryDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(SalaryDTO dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("INSERT INTO salary VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),
                 dto.getSalary(),dto.getOtcount(),dto.getPay1h(),dto.getBonase(),dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary());
 
     }
 
     @Override
-    public ArrayList<SalaryDTO> getAllSalary() throws SQLException, ClassNotFoundException {
+    public boolean update(SalaryDTO salaryDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(SalaryDTO salaryDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public ArrayList<SalaryDTO> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT * FROM salary");
         ArrayList<SalaryDTO> dtoList = new ArrayList<>();

@@ -2,7 +2,7 @@ package lk.ijse.semisterfinal.Bo.Custom.impl;
 
 import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
 import lk.ijse.semisterfinal.Dao.Custom.SupplierDao;
-import lk.ijse.semisterfinal.Dao.Custom.impl.SupplierDaoImpl;
+import lk.ijse.semisterfinal.Dao.DaoFactory;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
 
 import java.sql.SQLException;
@@ -10,25 +10,25 @@ import java.util.ArrayList;
 
 public class SupplierBoImpl implements SupplierBo {
 
-    SupplierDao supplierDao = new SupplierDaoImpl();
+    SupplierDao supplierDao = (SupplierDao) DaoFactory.getDaoFactory().getDAO(DaoFactory.DaoTyps.SUPPLIER);
 
     @Override
-    public boolean addSuppliers(SupplierDTO dto) throws SQLException, ClassNotFoundException {
-        return supplierDao.addSuppliers(dto);
+    public boolean add(SupplierDTO dto) throws SQLException, ClassNotFoundException {
+        return supplierDao.add(dto);
     }
 
     @Override
-    public boolean deleteSupplier(SupplierDTO id) throws SQLException, ClassNotFoundException {
-        return supplierDao.deleteSupplier(id);
+    public boolean delete(SupplierDTO id) throws SQLException, ClassNotFoundException {
+        return supplierDao.delete(id);
     }
 
     @Override
-    public boolean updateSupplier(SupplierDTO dto) throws SQLException, ClassNotFoundException {
-        return supplierDao.updateSupplier(dto);
+    public boolean update(SupplierDTO dto) throws SQLException, ClassNotFoundException {
+        return supplierDao.update(dto);
     }
 
     @Override
-    public ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException {
-        return supplierDao.getAllSupplier();
+    public ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException {
+        return supplierDao.getAll();
     }
 }

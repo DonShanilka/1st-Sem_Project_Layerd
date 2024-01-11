@@ -3,9 +3,11 @@ package lk.ijse.semisterfinal.Dao.Custom.impl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
+import lk.ijse.semisterfinal.dto.PlaceOrderDto;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class OrderDaoImpl implements OrderDao {
 
@@ -29,4 +31,23 @@ public class OrderDaoImpl implements OrderDao {
         return null;
     }
 
+    @Override
+    public ArrayList<PlaceOrderDto> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean add(PlaceOrderDto placeOrderDto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(PlaceOrderDto placeOrderDto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(PlaceOrderDto placeOrderDto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }

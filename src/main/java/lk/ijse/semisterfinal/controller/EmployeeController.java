@@ -18,7 +18,6 @@ import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.EmployeeDaoImpl;
 import lk.ijse.semisterfinal.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
-import lk.ijse.semisterfinal.model.AddEmployeeModel;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
@@ -145,7 +144,7 @@ public class EmployeeController implements Initializable {
 
         try {
             AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
-            boolean addSup= employeeDao.Add(dto);
+            boolean addSup= employeeDao.add(dto);
 
             if (addSup) {
                 EmployeeTm.getItems().add(new EmployeeTm(id,name,address,tele,date,email,position,gende,education,basic,experiance,de));

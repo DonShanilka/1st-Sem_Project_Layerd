@@ -23,7 +23,6 @@ public class ItemDaoImpl implements ItemDao {
                 dto.getSupplierId(),dto.getWarrantyPeriod(),dto.getItemQty(),dto.getCato());
     }
 
-
     @Override
     public boolean delete(ItemDTO id) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("DELETE FROM item WHERE item_code = ?",id.getItemCode());

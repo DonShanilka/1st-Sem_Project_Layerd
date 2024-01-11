@@ -3,6 +3,7 @@ package lk.ijse.semisterfinal.Bo.Custom.impl;
 import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
 import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.CustomerDaoImpl;
+import lk.ijse.semisterfinal.Dao.DaoFactory;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
 
 import java.sql.SQLException;
@@ -10,11 +11,11 @@ import java.util.ArrayList;
 
 public class CustomerBoImpl implements CustomerBo {
 
-    CustomerDao customerDao = new CustomerDaoImpl();
+    CustomerDao customerDao = (CustomerDao) DaoFactory.getDaoFactory().getDAO(DaoFactory.DaoTyps.CUSTOMER);
 
     @Override
     public boolean Add(CusromerDTO dto) throws SQLException, ClassNotFoundException {
-        return customerDao.Add(dto);
+        return customerDao.add(dto);
     }
 
     @Override

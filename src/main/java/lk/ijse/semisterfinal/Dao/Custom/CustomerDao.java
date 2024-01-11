@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CustomerDao extends CrudDAO <CusromerDTO> {
-    boolean Add(CusromerDTO dto) throws SQLException, ClassNotFoundException;
+    boolean add(CusromerDTO dto) throws SQLException, ClassNotFoundException;
     boolean delete(CusromerDTO id) throws SQLException, ClassNotFoundException;
 
     boolean update(CusromerDTO dto) throws SQLException, ClassNotFoundException;

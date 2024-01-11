@@ -2,7 +2,7 @@ package lk.ijse.semisterfinal.Bo.Custom.impl;
 
 import lk.ijse.semisterfinal.Bo.Custom.SalaryBo;
 import lk.ijse.semisterfinal.Dao.Custom.SalaryDao;
-import lk.ijse.semisterfinal.Dao.Custom.impl.SalaryDaoImpl;
+import lk.ijse.semisterfinal.Dao.DaoFactory;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
 import lk.ijse.semisterfinal.dto.SalaryDTO;
 
@@ -11,16 +11,16 @@ import java.util.ArrayList;
 
 public class SalaryBoImpl implements SalaryBo {
 
-    SalaryDao salaryDao = new SalaryDaoImpl();
+    SalaryDao salaryDao = (SalaryDao) DaoFactory.getDaoFactory().getDAO(DaoFactory.DaoTyps.SALARY);
 
     @Override
-    public boolean addSalary(SalaryDTO dto) throws SQLException, ClassNotFoundException {
-        return salaryDao.addSalary(dto);
+    public boolean add(SalaryDTO dto) throws SQLException, ClassNotFoundException {
+        return salaryDao.add(dto);
     }
 
     @Override
-    public ArrayList<SalaryDTO> getAllSalary() throws SQLException, ClassNotFoundException {
-        return salaryDao.getAllSalary();
+    public ArrayList<SalaryDTO> getAll() throws SQLException, ClassNotFoundException {
+        return salaryDao.getAll();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package lk.ijse.semisterfinal.Dao.Custom;
 
+import lk.ijse.semisterfinal.Dao.CrudDAO;
 import lk.ijse.semisterfinal.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
@@ -7,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ItemDao {
+public interface ItemDao extends CrudDAO<ItemDTO> {
 
     boolean add(ItemDTO dto) throws SQLException, ClassNotFoundException;
 

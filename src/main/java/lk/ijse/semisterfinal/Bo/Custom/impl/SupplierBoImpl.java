@@ -32,7 +32,13 @@ public class SupplierBoImpl implements SupplierBo {
 
     @Override
     public ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException {
-        return supplierDao.getAll();
+        ArrayList<SupplierEntity> entities = supplierDao.getAll();
+        ArrayList<SupplierDTO> dtos = new ArrayList<>();
+        for (SupplierEntity dto : entities){
+            dtos.add(new SupplierDTO(dto.getSupName(),dto.getMobile(),dto.getEmail(),dto.getCoName(),dto.getCoAddress(),dto.getItemcode(),
+                    dto.getItemName(),dto.getQty(),dto.getBNum(),dto.getCatagory(),dto.getSupNic()));
+        }
+        return dtos;
     }
 
     public SupplierDTO searchsupplier(String id) throws SQLException, ClassNotFoundException {

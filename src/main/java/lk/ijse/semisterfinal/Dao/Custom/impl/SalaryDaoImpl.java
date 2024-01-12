@@ -16,8 +16,10 @@ public class SalaryDaoImpl implements SalaryDao {
 
     @Override
     public boolean add(SalaryEntity dto) throws SQLException, ClassNotFoundException {
-        return SqlUtil.test("INSERT INTO salary VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),
-                dto.getSalary(),dto.getOtcount(),dto.getPay1h(),dto.getBonase(),dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary());
+        return SqlUtil.test("INSERT INTO salary VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+                dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),
+                dto.getSalary(),dto.getOtcount(),dto.getPay1h(),dto.getBonase(),
+                dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary());
 
     }
 
@@ -60,44 +62,13 @@ public class SalaryDaoImpl implements SalaryDao {
 
     @Override
     public AtendanceEntity getABcount(String id) throws SQLException, ClassNotFoundException {
-        return null;
+        return SqlUtil.test("SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Present'",id);
     }
 
     @Override
     public AtendanceEntity getPRcount(String id) throws SQLException, ClassNotFoundException {
-        return null;
+        return SqlUtil.test("SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Absent'",id);
     }
 
-
-    /*@Override
-    public AtendanceDTO getABcount(SalaryDTO id) throws SQLException, ClassNotFoundException {
-
-        ResultSet resultSet = SqlUtil.test("SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Absent'",id.getAbcount());
-        AtendanceDTO dto = null;
-
-        if (resultSet.next()) {
-            String ab = resultSet.getString(1);
-
-            dto = new AtendanceDTO(ab);
-        }
-        return dto;
-    }
-
-
-    @Override
-    public AtendanceDTO getPRcount(SalaryDTO id) throws SQLException, ClassNotFoundException {
-
-        PreparedStatement pstm = SqlUtil.test("SELECT COUNT(*) FROM attendance WHERE employee_id = ? AND presentAbsent = 'Present'",id.getPrCount());
-        ResultSet resultSet = pstm.executeQuery();
-
-        AtendanceDTO dto = null;
-
-        if (resultSet.next()) {
-            String pr = resultSet.getString(1);
-
-            dto = new AtendanceDTO(pr);
-        }
-        return dto;
-    }*/
 
 }

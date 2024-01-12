@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.Dao.Custom.AdminLoginDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.AdminLoginImpl;
 import lk.ijse.semisterfinal.dto.AdminDTO;
+import lk.ijse.semisterfinal.entity.AdminEntity;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,7 +43,7 @@ public class AdminregisterController {
             String name = enterAdminName.getText();
             String password = enterPassword.getText();
 
-            AdminDTO dto = new AdminDTO(id,name,password);
+            AdminEntity dto = new AdminEntity(id,name,password);
 
             try {
 

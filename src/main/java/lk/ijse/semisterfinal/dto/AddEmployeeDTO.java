@@ -64,4 +64,7 @@ public class AddEmployeeDTO implements SuperDto {
         this.BasicSalary = bSalary;
 
     }
+
+    public AddEmployeeDTO(String employeeId, String employeeName, String date, String pOra, String anInt, String abInt) {
+    }
 }

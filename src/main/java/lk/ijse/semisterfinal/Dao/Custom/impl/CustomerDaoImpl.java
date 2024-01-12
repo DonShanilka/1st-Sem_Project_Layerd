@@ -16,13 +16,17 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public boolean add(CusromerEntity dto) throws SQLException, ClassNotFoundException {
-        return SqlUtil.test("INSERT INTO customer VALUES(?,?,?,?,?,?)",dto.getTxtCustId(),dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),dto.getTxtCustPayment());
+        return SqlUtil.test("INSERT INTO customer VALUES(?,?,?,?,?,?)",
+                dto.getTxtCustId(),dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),
+                dto.getTxtCustitemId(),dto.getTxtCustPayment());
 
     }
 
     @Override
     public boolean update(CusromerEntity dto) throws SQLException,ClassNotFoundException {
-        return SqlUtil.test("UPDATE customer SET customer_address = ?, customer_name = ?, customer_mobile = ?, item_id = ? , payment =?  WHERE customer_id = ?",dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),dto.getTxtCustPayment(),dto.getTxtCustId());
+        return SqlUtil.test("UPDATE customer SET customer_address = ?, customer_name = ?, customer_mobile = ?, item_id = ? , payment =?  WHERE customer_id = ?",
+                dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),
+                dto.getTxtCustPayment(),dto.getTxtCustId());
     }
 
     @Override

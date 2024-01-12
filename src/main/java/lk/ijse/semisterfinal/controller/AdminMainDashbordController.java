@@ -28,16 +28,6 @@ public class AdminMainDashbordController {
     public JFXButton cashiyer;
     public JFXButton attendence;
 
-    /*@FXML
-    public BarChart <?,?> orderDataChart;
-    @FXML
-    public Label lblTotalOrders;
-    @FXML
-    public Label lblTotalUnits;
-    @FXML
-    public Label lblTotalInCome;
-    @FXML
-    public AreaChart <?,?> incomeDataChart;*/
 
 
     public void initialize() throws IOException {

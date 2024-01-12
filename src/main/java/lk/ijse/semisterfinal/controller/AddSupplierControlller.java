@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.SupplierBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
@@ -45,7 +46,7 @@ public class AddSupplierControlller  {
     public TextField txtSupNic;
 
     //SupplierDao supplierDao = new SupplierDaoImpl();
-    SupplierBo supplierBo = new SupplierBoImpl();
+    SupplierBo supplierBo = (SupplierBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.SUPPLIER);
 
     String[] ca = { "Electrical", "Furniture", "Toys", "Exercise equipment", "Office equipment", "Other"};
 

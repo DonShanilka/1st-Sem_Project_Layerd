@@ -7,8 +7,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.CustomerBoImpl;
+import lk.ijse.semisterfinal.Dao.Custom.AdminLoginDao;
+import lk.ijse.semisterfinal.Dao.DaoFactory;
 import lk.ijse.semisterfinal.dto.Tm.CustomerTm;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
 import org.controlsfx.control.Notifications;
@@ -45,7 +48,7 @@ public class AddCustomerController implements Initializable {
     @FXML
     public TextField txtCustId;
 
-    CustomerBo customerBo = new CustomerBoImpl();
+    CustomerBo customerBo = (CustomerBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.ADMIN);
 
     private void clearField() {
         txtCustId.setText("");

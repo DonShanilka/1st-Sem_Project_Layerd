@@ -9,6 +9,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Bo.Custom.CashiyerBo;
 import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
 import lk.ijse.semisterfinal.Bo.Custom.ItemBo;
@@ -77,9 +78,9 @@ public class CashierController {
     @FXML
     private TableColumn<?, ?> colQty;
 
-    private ItemBo itemBo = new ItemBoImpl();
-    private CustomerBo customerBo = new CustomerBoImpl();
-    private CashiyerBo cashiyerBo = new CashiyerBoImpl();
+    private ItemBo itemBo = (ItemBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.ITEM);
+    private CustomerBo customerBo = (CustomerBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.CUSTOMER);
+    private CashiyerBo cashiyerBo = (CashiyerBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.CASHIYER);
     private ObservableList<CartTm> obList = FXCollections.observableArrayList();
 
     OrderDao orderDao = new OrderDaoImpl();

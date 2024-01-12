@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Bo.Custom.ItemBo;
 import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.ItemBoImpl;
@@ -66,8 +67,8 @@ public class AddItemController implements Initializable {
     private String[] cata = {"Electrical", "Furniture", "Toys", "Exercise equipment", "Office equipment", "Other"};
 
     //ItemDao itemDao = new ItemDaoImpl();
-    ItemBo itemBo = new ItemBoImpl();
-    SupplierBo supplierBo = new SupplierBoImpl();
+    ItemBo itemBo = (ItemBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.ITEM);
+    SupplierBo supplierBo = (SupplierBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.SUPPLIER);
 
     public void initialize() throws SQLException {
         totalItem();

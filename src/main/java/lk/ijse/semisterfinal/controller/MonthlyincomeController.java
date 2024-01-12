@@ -19,8 +19,6 @@ import java.util.ResourceBundle;
 public class MonthlyincomeController  implements Initializable {
 
     public Label lblTotalCustomer;
-    @FXML
-    private AreaChart<?, ?> incomeDataChart;
 
     @FXML
     private Label lblTotalInCome;
@@ -33,9 +31,6 @@ public class MonthlyincomeController  implements Initializable {
 
     @FXML
     private BarChart<?, ?> orderDataChart;
-
-    @FXML
-    private AnchorPane root1;
 
     public void dashBordTotalOrders() throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();

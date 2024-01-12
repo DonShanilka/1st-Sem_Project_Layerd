@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Bo.Custom.AttendanceBo;
 import lk.ijse.semisterfinal.Bo.Custom.EmployeeBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.AttendanceBoImpl;
@@ -39,8 +40,8 @@ public class AttendanceController implements Initializable {
 
 
 
-    AttendanceBo attendanceBo = new AttendanceBoImpl();
-    EmployeeBo employeeBo = new EmployeeBoImpl();
+    AttendanceBo attendanceBo = (AttendanceBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.ATTENDANCE);
+    EmployeeBo employeeBo = (EmployeeBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.EMPLOYEE);
 
     private String[] pA = {"Present" , "Absent"};
 

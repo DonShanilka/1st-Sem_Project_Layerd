@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Bo.Custom.EmployeeBo;
 import lk.ijse.semisterfinal.Bo.Custom.SalaryBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.EmployeeBoImpl;
@@ -62,10 +63,8 @@ public class SalaryController implements Initializable {
     public TextField oTinH;
     public Label lblTotalSalary;
 
-    private ObservableList <SalaryTm> obList = FXCollections.observableArrayList();
-
-    SalaryBo salaryBo = new SalaryBoImpl();
-    EmployeeBo employeeBo = new EmployeeBoImpl();
+    SalaryBo salaryBo = (SalaryBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.SALARY);
+    EmployeeBo employeeBo = (EmployeeBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.EMPLOYEE);
 
     public void initialize() {
         date.setPromptText(String.valueOf(LocalDate.now()));

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.EmployeeDaoImpl;
@@ -60,7 +61,7 @@ public class EmployeeController implements Initializable {
     private String[] dep = {"HR", "Finance & Accounting", "Service", "IT"};
     private String[] edu = {"O/L", "A/L", "Diploma", "HND", "Degree", "Masters"};
 
-    EmployeeDao employeeDao = new EmployeeDaoImpl();
+    EmployeeDao employeeDao = (EmployeeDao) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.EMPLOYEE);
 
     public void initialize(){
         loadAllEmployee();

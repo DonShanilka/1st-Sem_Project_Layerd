@@ -8,7 +8,7 @@ public class BoFactory {
 
     private BoFactory(){}
 
-    public static BoFactory getDaoFactory(){
+    public static BoFactory getBoFactory(){
         return boFactory == null ? boFactory = new BoFactory() : boFactory;
     }
 

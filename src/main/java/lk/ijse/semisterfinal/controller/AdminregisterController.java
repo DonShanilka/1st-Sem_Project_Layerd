@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Dao.Custom.AdminLoginDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.AdminLoginImpl;
 import lk.ijse.semisterfinal.dto.AdminDTO;
@@ -19,7 +20,7 @@ public class AdminregisterController {
     public TextField enterPassword;
     public AnchorPane admingegister;
 
-    AdminLoginDao adminLoginDao = new  AdminLoginImpl();
+    AdminLoginDao adminLoginDao = (AdminLoginDao) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.ADMIN);
 
     public AdminregisterController() throws SQLException {
     }

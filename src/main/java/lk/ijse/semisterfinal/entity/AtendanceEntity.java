@@ -28,4 +28,10 @@ public class AtendanceEntity {
     }
 
 
+    public AtendanceEntity(String date, String employeeId, String employeeName, String date1, String pOra) {
+        this.date = String.valueOf(date);
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
+        this.pOra = pOra;
+    }
 }

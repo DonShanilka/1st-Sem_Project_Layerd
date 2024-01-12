@@ -48,7 +48,7 @@ public class AddCustomerController implements Initializable {
     @FXML
     public TextField txtCustId;
 
-    CustomerBo customerBo = (CustomerBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.ADMIN);
+    CustomerBo customerBo = (CustomerBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.CUSTOMER);
 
     private void clearField() {
         txtCustId.setText("");

@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.Bo.BoFactory;
+import lk.ijse.semisterfinal.Bo.Custom.EmployeeBo;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.EmployeeDaoImpl;
@@ -61,7 +62,7 @@ public class EmployeeController implements Initializable {
     private String[] dep = {"HR", "Finance & Accounting", "Service", "IT"};
     private String[] edu = {"O/L", "A/L", "Diploma", "HND", "Degree", "Masters"};
 
-    EmployeeDao employeeDao = (EmployeeDao) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.EMPLOYEE);
+    EmployeeBo employeeDao = (EmployeeBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.EMPLOYEE);
 
     public void initialize(){
         loadAllEmployee();
@@ -137,7 +138,7 @@ public class EmployeeController implements Initializable {
         String de = department.getValue();
 
         try {
-            AddEmployeeEntity dto = new AddEmployeeEntity(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
+            AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
             boolean addSup= employeeDao.add(dto);
 
             if (addSup) {
@@ -171,7 +172,7 @@ public class EmployeeController implements Initializable {
             /*if (!validateEmployee()){
                 return;
             }*/
-            AddEmployeeEntity dto = new AddEmployeeEntity(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
+            AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
             boolean isUpdate = employeeDao.update(dto);
 
             if (isUpdate){
@@ -194,7 +195,7 @@ public class EmployeeController implements Initializable {
         String eid = txtemployeeId.getText();
 
         try {
-            AddEmployeeEntity id = new AddEmployeeEntity(eid);
+            AddEmployeeDTO id = new AddEmployeeDTO(eid);
 
             boolean isDeleted = employeeDao.delete(id);
             if(isDeleted) {
@@ -217,9 +218,9 @@ public class EmployeeController implements Initializable {
         EmployeeTm.getItems().clear();
 
         try {
-            ArrayList <AddEmployeeEntity> dtoList = employeeDao.getAll();
+            ArrayList <AddEmployeeDTO> dtoList = employeeDao.getAll();
 
-            for (AddEmployeeEntity e : dtoList) {
+            for (AddEmployeeDTO e : dtoList) {
                 EmployeeTm.getItems().add(new EmployeeTm(e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe()));
             }
 

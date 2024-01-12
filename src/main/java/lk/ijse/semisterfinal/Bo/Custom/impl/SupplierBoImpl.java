@@ -42,7 +42,9 @@ public class SupplierBoImpl implements SupplierBo {
     }
 
     public SupplierDTO searchsupplier(String id) throws SQLException, ClassNotFoundException {
-        return supplierDao.searchsupplier(id);
+        SupplierEntity dto = supplierDao.searchsupplier(id);
+        return new SupplierDTO(dto.getSupName(),dto.getMobile(),dto.getEmail(),dto.getCoName(),dto.getCoAddress(),dto.getItemcode(),
+                dto.getItemName(),dto.getQty(),dto.getBNum(),dto.getCatagory(),dto.getSupNic());
     }
 
 }

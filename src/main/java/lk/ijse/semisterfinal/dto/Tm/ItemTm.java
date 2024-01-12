@@ -1,4 +1,4 @@
-package lk.ijse.semisterfinal.Tm;
+package lk.ijse.semisterfinal.dto.Tm;
 
 import lombok.*;
 

@@ -1,5 +1,6 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 
-public class CashiyerDTO {
+public class CashiyerDTO implements SuperDto {
     private String billId;
     private String itemId;
     private String itemName;

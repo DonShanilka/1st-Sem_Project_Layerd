@@ -1,5 +1,6 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,7 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class IncomeDTO {
+public class IncomeDTO implements SuperDto {
     private String order_id;
     private String item_code;
     private String qty;

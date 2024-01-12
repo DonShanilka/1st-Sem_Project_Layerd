@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.SupplierBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.Tm.SupplierTm;
+import lk.ijse.semisterfinal.dto.Tm.SupplierTm;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
 import java.io.IOException;
 import java.sql.Connection;

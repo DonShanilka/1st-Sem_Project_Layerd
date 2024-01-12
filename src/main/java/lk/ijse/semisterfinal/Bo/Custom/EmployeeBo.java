@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface EmployeeBo extends SupperBo {
 
-    boolean Add(AddEmployeeDTO dto) throws SQLException, ClassNotFoundException;
+    boolean add(AddEmployeeDTO dto) throws SQLException, ClassNotFoundException;
 
     ArrayList<AddEmployeeDTO> getAll() throws SQLException, ClassNotFoundException;
 

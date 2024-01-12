@@ -1,6 +1,5 @@
 package lk.ijse.semisterfinal.controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +9,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.Bo.Custom.CashiyerBo;
 import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
 import lk.ijse.semisterfinal.Bo.Custom.ItemBo;
@@ -18,11 +16,9 @@ import lk.ijse.semisterfinal.Bo.Custom.impl.CashiyerBoImpl;
 import lk.ijse.semisterfinal.Bo.Custom.impl.CustomerBoImpl;
 import lk.ijse.semisterfinal.Bo.Custom.impl.ItemBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.Dao.Custom.CashiyerDao;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
-import lk.ijse.semisterfinal.Dao.Custom.impl.CashiyerDaoImpl;
 import lk.ijse.semisterfinal.Dao.Custom.impl.OrderDaoImpl;
-import lk.ijse.semisterfinal.Tm.CartTm;
+import lk.ijse.semisterfinal.dto.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -35,11 +31,8 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static java.awt.SystemColor.text;
 

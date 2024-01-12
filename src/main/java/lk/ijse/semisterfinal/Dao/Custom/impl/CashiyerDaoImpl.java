@@ -5,17 +5,16 @@ import lk.ijse.semisterfinal.Dao.Custom.CashiyerDao;
 import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
 import lk.ijse.semisterfinal.Dao.Custom.OderDetailsDao;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
-import lk.ijse.semisterfinal.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.CashiyerDTO;
-import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.PlaceOrderDto;
+import lk.ijse.semisterfinal.entity.CashiyerEntity;
+import lk.ijse.semisterfinal.entity.PlaceOrderEntity;
 
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CashiyerDaoImpl implements CashiyerDao {
 
@@ -24,7 +23,7 @@ public class CashiyerDaoImpl implements CashiyerDao {
     private static OderDetailsDao oDetails = new OrderDetailsDaoImpl();
 
 
-    public boolean placeOrder(PlaceOrderDto placeOrderDto) throws SQLException {
+    public boolean placeOrder(PlaceOrderEntity placeOrderDto) throws SQLException {
         System.out.println(placeOrderDto);
 
         String orderId = placeOrderDto.getOrderId();
@@ -56,22 +55,27 @@ public class CashiyerDaoImpl implements CashiyerDao {
     }
 
     @Override
-    public ArrayList<CashiyerDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<CashiyerEntity> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean add(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
+    public boolean add(CashiyerEntity cashiyerDTO) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
+    public boolean update(CashiyerEntity cashiyerDTO) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean delete(CashiyerDTO cashiyerDTO) throws SQLException, ClassNotFoundException {
+    public boolean delete(CashiyerEntity cashiyerDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean placeOrder(CashiyerEntity placeOrderDto) throws SQLException {
         return false;
     }
 }

@@ -1,12 +1,13 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 @Getter
 @Setter
 @ToString
 
-public class AtendanceDTO {
+public class AtendanceDTO implements SuperDto {
     private String date;
     private String employeeId;
     private String employeeName;

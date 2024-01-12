@@ -1,8 +1,7 @@
-package lk.ijse.semisterfinal.Tm;
+package lk.ijse.semisterfinal.dto.Tm;
 
 
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Label;
 import lombok.*;
 
 @Getter

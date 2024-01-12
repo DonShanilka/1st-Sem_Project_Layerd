@@ -11,7 +11,7 @@ import lk.ijse.semisterfinal.Bo.Custom.AttendanceBo;
 import lk.ijse.semisterfinal.Bo.Custom.EmployeeBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.AttendanceBoImpl;
 import lk.ijse.semisterfinal.Bo.Custom.impl.EmployeeBoImpl;
-import lk.ijse.semisterfinal.Tm.AtendanceTm;
+import lk.ijse.semisterfinal.dto.Tm.AtendanceTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
 

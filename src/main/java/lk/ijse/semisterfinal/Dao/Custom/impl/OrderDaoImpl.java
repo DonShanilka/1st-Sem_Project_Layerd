@@ -4,6 +4,7 @@ import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.OrderDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.PlaceOrderDto;
+import lk.ijse.semisterfinal.entity.PlaceOrderEntity;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -32,22 +33,22 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public ArrayList<PlaceOrderDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<PlaceOrderEntity> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean add(PlaceOrderDto placeOrderDto) throws SQLException, ClassNotFoundException {
+    public boolean add(PlaceOrderEntity placeOrderDto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(PlaceOrderDto placeOrderDto) throws SQLException, ClassNotFoundException {
+    public boolean update(PlaceOrderEntity placeOrderDto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean delete(PlaceOrderDto placeOrderDto) throws SQLException, ClassNotFoundException {
+    public boolean delete(PlaceOrderEntity placeOrderDto) throws SQLException, ClassNotFoundException {
         return false;
     }
 }

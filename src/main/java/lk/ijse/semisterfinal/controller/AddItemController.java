@@ -2,15 +2,12 @@ package lk.ijse.semisterfinal.controller;
 
 import com.google.zxing.WriterException;
 import com.jfoenix.controls.JFXButton;
-import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,7 +17,7 @@ import lk.ijse.semisterfinal.Bo.Custom.SupplierBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.ItemBoImpl;
 import lk.ijse.semisterfinal.Bo.Custom.impl.SupplierBoImpl;
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.Tm.ItemTm;
+import lk.ijse.semisterfinal.dto.Tm.ItemTm;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
 import net.sf.jasperreports.engine.*;
@@ -38,7 +35,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -52,7 +48,7 @@ public class AddItemController implements Initializable {
     public ComboBox  comsupid;
 
     public Pane root;
-    public TableView<lk.ijse.semisterfinal.Tm.ItemTm> ItemTm;
+    public TableView<lk.ijse.semisterfinal.dto.Tm.ItemTm> ItemTm;
     public TableColumn <?,?> tmItemCode;
     public TableColumn <?,?> tmItemDetails;
     public TableColumn <?,?> tmItemPrice;

@@ -1,5 +1,6 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class BillDTO {
+public class BillDTO implements SuperDto {
     private String orderId;
     private LocalDate date;
     private String customerId;

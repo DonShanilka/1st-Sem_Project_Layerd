@@ -1,9 +1,7 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
-
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -11,7 +9,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 
-public class SalaryDTO {
+public class SalaryDTO implements SuperDto {
 
     private String  date;
     private String employeeId;

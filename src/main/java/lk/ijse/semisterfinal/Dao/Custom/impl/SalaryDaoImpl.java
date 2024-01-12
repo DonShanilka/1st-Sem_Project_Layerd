@@ -4,6 +4,9 @@ import lk.ijse.semisterfinal.Dao.Custom.SalaryDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
 import lk.ijse.semisterfinal.dto.SalaryDTO;
+import lk.ijse.semisterfinal.entity.AtendanceEntity;
+import lk.ijse.semisterfinal.entity.SalaryEntity;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,31 +15,31 @@ import java.util.ArrayList;
 public class SalaryDaoImpl implements SalaryDao {
 
     @Override
-    public boolean add(SalaryDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(SalaryEntity dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("INSERT INTO salary VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",dto.getDate(),dto.getEmployeeId(),dto.getEmployeeName(),
                 dto.getSalary(),dto.getOtcount(),dto.getPay1h(),dto.getBonase(),dto.getEpf(),dto.getEtf(),dto.getPrCount(),dto.getAbcount(),dto.getTotalsalary());
 
     }
 
     @Override
-    public boolean update(SalaryDTO salaryDTO) throws SQLException, ClassNotFoundException {
+    public boolean update(SalaryEntity salaryDTO) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean delete(SalaryDTO salaryDTO) throws SQLException, ClassNotFoundException {
+    public boolean delete(SalaryEntity salaryDTO) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public ArrayList<SalaryDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<SalaryEntity> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT * FROM salary");
-        ArrayList<SalaryDTO> dtoList = new ArrayList<>();
+        ArrayList<SalaryEntity> dtoList = new ArrayList<>();
 
         while(resultSet.next()) {
             dtoList.add(
-                    new SalaryDTO(
+                    new SalaryEntity(
                             String.valueOf(resultSet.getDate(1)),
                             resultSet.getString(2),
                             resultSet.getString(3),
@@ -56,12 +59,12 @@ public class SalaryDaoImpl implements SalaryDao {
     }
 
     @Override
-    public AtendanceDTO getABcount(String id) throws SQLException, ClassNotFoundException {
+    public AtendanceEntity getABcount(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public AtendanceDTO getPRcount(String id) throws SQLException, ClassNotFoundException {
+    public AtendanceEntity getPRcount(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 

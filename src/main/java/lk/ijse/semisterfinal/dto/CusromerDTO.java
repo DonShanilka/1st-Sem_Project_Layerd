@@ -1,9 +1,8 @@
 package lk.ijse.semisterfinal.dto;
 
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
-
-import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,7 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 
-public class CusromerDTO implements Serializable {
+public class CusromerDTO implements SuperDto {
     private String txtCustId;
     private String txtCustAddress;
     private String txtCustName;

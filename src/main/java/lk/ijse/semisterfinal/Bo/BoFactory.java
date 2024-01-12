@@ -1,8 +1,6 @@
 package lk.ijse.semisterfinal.Bo;
 
-import lk.ijse.semisterfinal.Dao.Custom.impl.*;
-import lk.ijse.semisterfinal.Dao.DaoFactory;
-import lk.ijse.semisterfinal.Dao.SupperDAO;
+import lk.ijse.semisterfinal.Bo.Custom.impl.*;
 
 public class BoFactory {
 
@@ -15,31 +13,27 @@ public class BoFactory {
     }
 
     public enum BoTyps{
-        ADMIN,ATTENDANCE,CASHIYER,CUSTOMER,EMPLOYEE,ITEM,ORDERS,ORDERDETAIL,SALARY,SUPPLIER
+        ADMIN,ATTENDANCE,CASHIYER,CUSTOMER,EMPLOYEE,ITEM,SALARY,SUPPLIER
     }
 
-    public SupperDAO getDAO(BoTyps boTyps){
+    public SupperBo getBo(BoTyps boTyps){
         switch (boTyps) {
             case ADMIN:
-                return new AdminLoginImpl();
+                return new AdminLoginBoImpl();
             case ATTENDANCE:
-                return new AttendanceDaoImpl();
+                return new AttendanceBoImpl();
             case CASHIYER:
-                return new CashiyerDaoImpl();
+                return new CashiyerBoImpl();
             case CUSTOMER:
-                return new CustomerDaoImpl();
+                return new CustomerBoImpl();
             case EMPLOYEE:
-                return new EmployeeDaoImpl();
+                return new EmployeeBoImpl();
             case ITEM:
-                return new ItemDaoImpl();
-            case ORDERS:
-                return new OrderDaoImpl();
-            case ORDERDETAIL:
-                return (SupperDAO) new OrderDetailsDaoImpl();
+                return new ItemBoImpl();
             case SALARY:
-                return new SalaryDaoImpl();
+                return new SalaryBoImpl();
             case SUPPLIER:
-                return new SupplierDaoImpl();
+                return new SupplierBoImpl();
             default:
                 return null;
         }

@@ -3,7 +3,7 @@ package lk.ijse.semisterfinal.entity;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import lk.ijse.semisterfinal.Tm.CartTm;
+import lk.ijse.semisterfinal.dto.Tm.CartTm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

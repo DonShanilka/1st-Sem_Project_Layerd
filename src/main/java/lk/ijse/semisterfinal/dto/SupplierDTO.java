@@ -1,5 +1,6 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 @NoArgsConstructor
@@ -7,7 +8,7 @@ import lombok.*;
 @Getter
 @ToString
 
-public class SupplierDTO {
+public class SupplierDTO implements SuperDto {
     private String supNic;
     private String supName;
     private int mobile;

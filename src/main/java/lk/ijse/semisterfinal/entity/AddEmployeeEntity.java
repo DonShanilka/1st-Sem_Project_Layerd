@@ -66,4 +66,5 @@ public class AddEmployeeEntity {
         this.BasicSalary = bSalary;
 
     }
+
 }

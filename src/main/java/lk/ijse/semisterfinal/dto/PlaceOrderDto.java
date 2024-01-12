@@ -3,7 +3,8 @@ package lk.ijse.semisterfinal.dto;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import lk.ijse.semisterfinal.Tm.CartTm;
+import lk.ijse.semisterfinal.dto.Tm.CartTm;
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 
-public class PlaceOrderDto {
+public class PlaceOrderDto implements SuperDto {
     private String orderId;
     private LocalDate date;
     private String customerId;

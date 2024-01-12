@@ -5,6 +5,7 @@ import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
+import lk.ijse.semisterfinal.entity.AddEmployeeEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
-    public boolean add(AddEmployeeDTO e) throws SQLException, ClassNotFoundException {
+    public boolean add(AddEmployeeEntity e) throws SQLException, ClassNotFoundException {
        return SqlUtil.test("INSERT INTO employee VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),
                e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe());
 
@@ -23,13 +24,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 
     @Override
-    public ArrayList<AddEmployeeDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<AddEmployeeEntity> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT * FROM employee");
-        ArrayList <AddEmployeeDTO> dtoList = new ArrayList<>();
+        ArrayList <AddEmployeeEntity> dtoList = new ArrayList<>();
 
         while (resultSet.next()) {
-                    AddEmployeeDTO dto = new AddEmployeeDTO(
+            AddEmployeeEntity dto = new AddEmployeeEntity(
                             resultSet.getString(1),
                             resultSet.getString(2),
                             resultSet.getString(3),
@@ -51,7 +52,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 
     @Override
-    public boolean update(AddEmployeeDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(AddEmployeeEntity dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("UPDATE employee SET employee_name = ?, employee_address = ?, employee_teliphone = ?, job_start_date = ? , position =?, email =?, gender =?, education =?, basicSalary =?, experiance =?, department =?  WHERE employee_id = ?",
                 dto.getEmployeeName(),dto.getEmpAddress(),dto.getEmployeePhone(),dto.getEmpDate(),dto.getEmpPosition(),
                 dto.getEmail(),dto.getGender(),dto.getEducation(),dto.getBasicSalary(),dto.getExpiriance(),dto.getDe(),dto.getEmployeeId());
@@ -60,35 +61,34 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 
     @Override
-    public boolean delete(AddEmployeeDTO id) throws SQLException, ClassNotFoundException {
+    public boolean delete(AddEmployeeEntity id) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("DELETE FROM employee WHERE employee_id = ?",id.getEmployeeId());
 
     }
 
-    public AddEmployeeDTO searchEmployee(String id) throws SQLException, ClassNotFoundException {
-        /*Connection connection = DbConnetion.getInstance().getConnection();
+    public AddEmployeeEntity searchEmployee(String id) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM employee WHERE employee_id = ? ";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setString(1, id);*/
 
         ResultSet resultSet = SqlUtil.test( "SELECT * FROM employee WHERE employee_id = ? ");
 
-        AddEmployeeDTO dto = null;
-
         if (resultSet.next()){
-            String eid = resultSet.getString(1);
-            String name = resultSet.getString(2);
-            String address = resultSet.getString(3);
-            int mobile = Integer.parseInt(String.valueOf(resultSet.getInt(4)));
-            String date = resultSet.getString(5);
-            String email = resultSet.getString(7);
-            String position = resultSet.getString(6);
-            double bSalary = resultSet.getDouble(10);
+            return new AddEmployeeEntity(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    Integer.parseInt(String.valueOf(resultSet.getInt(4))),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    resultSet.getString(8),
+                    resultSet.getString(9),
+                    resultSet.getDouble(10),
+                    resultSet.getString(11),
+                    resultSet.getString(12)
 
-            dto = new AddEmployeeDTO(eid,name,address,mobile,date,email,position,bSalary);
+            );
         }
-        return dto;
+        return null;
     }
 
 

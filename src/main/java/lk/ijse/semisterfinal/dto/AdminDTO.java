@@ -1,6 +1,8 @@
 package lk.ijse.semisterfinal.dto;
 
-public class AdminDTO {
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
+
+public class AdminDTO implements SuperDto {
     private String id;
     private String userName;
     private String password;

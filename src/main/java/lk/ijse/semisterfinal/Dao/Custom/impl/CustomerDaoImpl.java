@@ -4,6 +4,7 @@ import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
+import lk.ijse.semisterfinal.entity.CusromerEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,29 +15,29 @@ import java.util.ArrayList;
 public class CustomerDaoImpl implements CustomerDao {
 
     @Override
-    public boolean add(CusromerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(CusromerEntity dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("INSERT INTO customer VALUES(?,?,?,?,?,?)",dto.getTxtCustId(),dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),dto.getTxtCustPayment());
 
     }
 
     @Override
-    public boolean update(CusromerDTO dto) throws SQLException,ClassNotFoundException {
+    public boolean update(CusromerEntity dto) throws SQLException,ClassNotFoundException {
         return SqlUtil.test("UPDATE customer SET customer_address = ?, customer_name = ?, customer_mobile = ?, item_id = ? , payment =?  WHERE customer_id = ?",dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),dto.getTxtCustPayment(),dto.getTxtCustId());
     }
 
     @Override
-    public boolean delete(CusromerDTO id) throws SQLException, ClassNotFoundException {
+    public boolean delete(CusromerEntity id) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("DELETE FROM customer WHERE customer_id = ?",id.getTxtCustId());
     }
 
     @Override
-    public ArrayList<CusromerDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<CusromerEntity> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet rst = SqlUtil.test("SELECT * FROM customer");
-        ArrayList <CusromerDTO> getAllCustomer = new ArrayList<>();
+        ArrayList <CusromerEntity> getAllCustomer = new ArrayList<>();
 
         while (rst.next()) {
-            CusromerDTO customerDTO = new CusromerDTO(
+            CusromerEntity customerDTO = new CusromerEntity(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -50,7 +51,7 @@ public class CustomerDaoImpl implements CustomerDao {
         return getAllCustomer;
     }
 
-    public CusromerDTO searchCustomer(String id) throws SQLException {
+    public CusromerEntity searchCustomer(String id) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "SELECT * FROM customer WHERE customer_id = ? ";
@@ -59,7 +60,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
         ResultSet resultSet = pstm.executeQuery();
 
-        CusromerDTO dto = null;
+        CusromerEntity dto = null;
 
         if (resultSet.next()){
             String cust_id = resultSet.getString(1);
@@ -68,7 +69,7 @@ public class CustomerDaoImpl implements CustomerDao {
             String cust_mobile = resultSet.getString(4);
             String payment = resultSet.getString(5);
 
-            dto = new CusromerDTO(cust_id,cust_address,cust_name,cust_mobile,payment);
+            dto = new CusromerEntity(cust_id,cust_address,cust_name,cust_mobile,payment);
         }
         return dto;
     }

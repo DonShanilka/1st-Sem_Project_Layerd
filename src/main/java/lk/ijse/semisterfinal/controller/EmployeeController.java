@@ -1,25 +1,19 @@
 package lk.ijse.semisterfinal.controller;
 
 import com.google.zxing.WriterException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.EmployeeDaoImpl;
-import lk.ijse.semisterfinal.Tm.EmployeeTm;
+import lk.ijse.semisterfinal.dto.Tm.EmployeeTm;
 import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
+import lk.ijse.semisterfinal.entity.AddEmployeeEntity;
+
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class EmployeeController implements Initializable {
@@ -143,7 +136,7 @@ public class EmployeeController implements Initializable {
         String de = department.getValue();
 
         try {
-            AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
+            AddEmployeeEntity dto = new AddEmployeeEntity(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
             boolean addSup= employeeDao.add(dto);
 
             if (addSup) {
@@ -177,7 +170,7 @@ public class EmployeeController implements Initializable {
             /*if (!validateEmployee()){
                 return;
             }*/
-            AddEmployeeDTO dto = new AddEmployeeDTO(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
+            AddEmployeeEntity dto = new AddEmployeeEntity(id,name,address,tele,date,email,position,gende,education,basic,experiance,de);
             boolean isUpdate = employeeDao.update(dto);
 
             if (isUpdate){
@@ -200,7 +193,7 @@ public class EmployeeController implements Initializable {
         String eid = txtemployeeId.getText();
 
         try {
-            AddEmployeeDTO id = new AddEmployeeDTO(eid);
+            AddEmployeeEntity id = new AddEmployeeEntity(eid);
 
             boolean isDeleted = employeeDao.delete(id);
             if(isDeleted) {
@@ -223,9 +216,9 @@ public class EmployeeController implements Initializable {
         EmployeeTm.getItems().clear();
 
         try {
-            ArrayList <AddEmployeeDTO> dtoList = employeeDao.getAll();
+            ArrayList <AddEmployeeEntity> dtoList = employeeDao.getAll();
 
-            for (AddEmployeeDTO e : dtoList) {
+            for (AddEmployeeEntity e : dtoList) {
                 EmployeeTm.getItems().add(new EmployeeTm(e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe()));
             }
 

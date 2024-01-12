@@ -2,7 +2,7 @@ package lk.ijse.semisterfinal.Dao.Custom.impl;
 
 import lk.ijse.semisterfinal.Dao.Custom.OderDetailsDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
-import lk.ijse.semisterfinal.Tm.CartTm;
+import lk.ijse.semisterfinal.dto.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.PlaceOrderDto;
 
 import java.sql.SQLException;

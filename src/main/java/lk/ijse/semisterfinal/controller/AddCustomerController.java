@@ -7,13 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
 import lk.ijse.semisterfinal.Bo.Custom.impl.CustomerBoImpl;
-import lk.ijse.semisterfinal.Dao.Custom.CustomerDao;
-import lk.ijse.semisterfinal.Dao.Custom.impl.CustomerDaoImpl;
-import lk.ijse.semisterfinal.Tm.CustomerTm;
+import lk.ijse.semisterfinal.dto.Tm.CustomerTm;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
 import org.controlsfx.control.Notifications;
 

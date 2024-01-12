@@ -1,5 +1,6 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 
@@ -8,7 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 
-public class AddEmployeeDTO {
+public class AddEmployeeDTO implements SuperDto {
     private String employeeId;
     private String EmployeeName;
     private String EmpAddress;

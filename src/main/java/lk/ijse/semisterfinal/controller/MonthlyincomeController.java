@@ -8,8 +8,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.semisterfinal.DB.DbConnetion;
-import lk.ijse.semisterfinal.Tm.CartTm;
-import lk.ijse.semisterfinal.dto.PlaceOrderDto;
 
 import java.net.URL;
 import java.sql.Connection;

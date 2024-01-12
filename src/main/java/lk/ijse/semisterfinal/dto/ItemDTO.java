@@ -1,5 +1,6 @@
 package lk.ijse.semisterfinal.dto;
 
+import lk.ijse.semisterfinal.dto.Factory.SuperDto;
 import lombok.*;
 
 @Getter
@@ -9,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 
 
-public class ItemDTO {
+public class ItemDTO implements SuperDto {
     private String ItemCode;
     private String itemDetails;
     private double ItemPrice;

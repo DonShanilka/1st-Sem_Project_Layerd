@@ -1,12 +1,13 @@
 package lk.ijse.semisterfinal.Dao.Custom.impl;
 
-import javafx.scene.control.TextField;
 import lk.ijse.semisterfinal.DB.DbConnetion;
 import lk.ijse.semisterfinal.Dao.Custom.ItemDao;
 import lk.ijse.semisterfinal.Dao.SqlUtil;
-import lk.ijse.semisterfinal.Tm.CartTm;
+import lk.ijse.semisterfinal.dto.Tm.CartTm;
 import lk.ijse.semisterfinal.dto.ItemDTO;
 import lk.ijse.semisterfinal.dto.SupplierDTO;
+import lk.ijse.semisterfinal.entity.ItemEntity;
+import lk.ijse.semisterfinal.entity.SupplierEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,19 +19,19 @@ import java.util.List;
 public class ItemDaoImpl implements ItemDao {
 
     @Override
-    public boolean add(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(ItemEntity dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("INSERT INTO item VALUES(?,?,?,?,?,?,?)",dto.getItemCode(),dto.getItemDetails(),dto.getItemPrice(),
                 dto.getSupplierId(),dto.getWarrantyPeriod(),dto.getItemQty(),dto.getCato());
     }
 
     @Override
-    public boolean delete(ItemDTO id) throws SQLException, ClassNotFoundException {
+    public boolean delete(ItemEntity id) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("DELETE FROM item WHERE item_code = ?",id.getItemCode());
     }
 
 
     @Override
-    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(ItemEntity dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.test("UPDATE item SET item_name = ?, item_price = ?, supplier_id = ? , warranty =?, qty =?, catogary =?  WHERE item_code = ?",
                 dto.getItemDetails(),dto.getItemPrice(),dto.getSupplierId(),dto.getWarrantyPeriod(),dto.getItemQty(),dto.getCato(),dto.getItemCode());
 
@@ -38,14 +39,14 @@ public class ItemDaoImpl implements ItemDao {
 
 
     @Override
-    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<ItemEntity> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT * FROM Item");
-        ArrayList <ItemDTO> dtoList = new ArrayList<>();
+        ArrayList <ItemEntity> dtoList = new ArrayList<>();
 
         while(resultSet.next()) {
             dtoList.add(
-                    new ItemDTO(
+                    new ItemEntity(
                             resultSet.getString(1),
                             resultSet.getString(2),
                             resultSet.getDouble(3),
@@ -61,14 +62,14 @@ public class ItemDaoImpl implements ItemDao {
     }
 
 
-    public ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException {
+    public ArrayList<SupplierEntity> getAllSupplier() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.test("SELECT * FROM supplier");
-        ArrayList<SupplierDTO> dtoList = new ArrayList<>();
+        ArrayList<SupplierEntity> dtoList = new ArrayList<>();
 
         while(resultSet.next()) {
             dtoList.add(
-                    new SupplierDTO(
+                    new SupplierEntity(
                             resultSet.getString(1),
                             resultSet.getString(2),
                             resultSet.getInt(3),
@@ -110,7 +111,7 @@ public class ItemDaoImpl implements ItemDao {
         return pstm.executeUpdate() > 0;
     }
 
-    public ItemDTO searchItemId(String id) throws SQLException {
+    public ItemEntity searchItemId(String id) throws SQLException {
         Connection connection = DbConnetion.getInstance().getConnection();
 
         String sql = "SELECT * FROM item WHERE item_code = ? ";
@@ -119,7 +120,7 @@ public class ItemDaoImpl implements ItemDao {
 
         ResultSet resultSet = pstm.executeQuery();
 
-        ItemDTO dto = null;
+        ItemEntity dto = null;
 
         if (resultSet.next()){
             String item_code = resultSet.getString(1);
@@ -130,7 +131,7 @@ public class ItemDaoImpl implements ItemDao {
             String qty = String.valueOf(resultSet.getInt(6));
             String cat = resultSet.getString(7);
 
-            dto = new ItemDTO(item_code,item_name,item_price,sup_id,warranty,qty,cat);
+            dto = new ItemEntity(item_code,item_name,item_price,sup_id,warranty,qty,cat);
         }
         return dto;
     }

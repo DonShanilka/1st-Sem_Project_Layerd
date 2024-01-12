@@ -34,4 +34,11 @@ public class AtendanceEntity {
         this.employeeName = employeeName;
         this.pOra = pOra;
     }
+
+    public AtendanceEntity(String employeeId, String employeeName, String date, String pOra, String abInt, String anInt) {
+        this.date = String.valueOf(date);
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
+        this.pOra = pOra;
+    }
 }

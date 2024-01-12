@@ -6,7 +6,9 @@ import lk.ijse.semisterfinal.Dao.Custom.EmployeeDao;
 import lk.ijse.semisterfinal.Dao.Custom.impl.AttendanceDaoImpl;
 import lk.ijse.semisterfinal.Dao.Custom.impl.EmployeeDaoImpl;
 import lk.ijse.semisterfinal.Dao.DaoFactory;
+import lk.ijse.semisterfinal.dto.AddEmployeeDTO;
 import lk.ijse.semisterfinal.dto.AtendanceDTO;
+import lk.ijse.semisterfinal.entity.AddEmployeeEntity;
 import lk.ijse.semisterfinal.entity.AtendanceEntity;
 
 import java.sql.SQLException;
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 public class AttendanceBoImpl implements AttendanceBo {
 
     AttendanceDao attendanceDao = (AttendanceDao) DaoFactory.getDaoFactory().getDAO(DaoFactory.DaoTyps.ATTENDANCE);
-    EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     @Override
     public boolean add(AtendanceDTO dto) throws SQLException, ClassNotFoundException {
@@ -24,17 +25,16 @@ public class AttendanceBoImpl implements AttendanceBo {
 
     @Override
     public ArrayList<AtendanceDTO> getAll() throws SQLException, ClassNotFoundException {
-        ArrayList<AtendanceEntity>employees = (ArrayList<AtendanceEntity>) employeeDao.getAll();
-        ArrayList<EmployeeDto>employeeDtos = new ArrayList<>();
+        ArrayList<AtendanceEntity>employees = attendanceDao.getAll();
+        ArrayList<AtendanceDTO>employeeDtos = new ArrayList<>();
 
-        for (Employee employee:employees) {
-            employeeDtos.add(new EmployeeDto(
-                    employee.getId(),
-                    employee.getName(),
-                    employee.getContact(),
-                    employee.getNic(),
-                    employee.getJob(),
-                    employee.getEmail()
+        for (AtendanceEntity employee:employees) {
+            employeeDtos.add(new AtendanceDTO(
+                    employee.getDate(),
+                    employee.getEmployeeId(),
+                    employee.getEmployeeName(),
+                    employee.getPOra()
+
             ));
         }
         return employeeDtos;

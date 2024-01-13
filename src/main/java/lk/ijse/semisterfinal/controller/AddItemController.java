@@ -36,6 +36,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -137,12 +138,12 @@ public class AddItemController implements Initializable {
 
             if (isaddite) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
+                ItemTm.getItems().add(new ItemTm(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat));
                 loadAllItem();
                 clearField();
                 itemSerachOnAction();
                 totalItem();
             }
-            ItemTm.getItems().add(new ItemTm(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat));
 
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -152,14 +153,15 @@ public class AddItemController implements Initializable {
 
 
     private void loadAllItem() {
-
         ItemTm.getItems().clear();
 
         try {
-            ArrayList<ItemDTO> dtoList = itemBo.getAll();
+            List<ItemDTO> dtoList = itemBo.getAll();
 
             for (ItemDTO i : dtoList) {
-                ItemTm.getItems().add(new ItemTm(i.getItemCode(),i.getItemDetails(),i.getItemPrice(),i.getSupplierId(),i.getWarrantyPeriod(),i.getItemQty(),i.getCato()));
+                ItemTm.getItems().addAll(new ItemTm(i.getItemCode(),i.getItemDetails(),
+                        i.getItemPrice(),i.getSupplierId(),i.getWarrantyPeriod(),
+                        i.getItemQty(),i.getCato()));
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -188,10 +190,11 @@ public class AddItemController implements Initializable {
             if (isUpdate){
                 ItemTm.getSelectionModel().clearSelection();
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee is updated").show();
+                ItemTm.getItems().addAll(new ItemTm(id, name, price, supid, warranty, Qty, cat));
                 loadAllItem();
                 clearField();
             }
-            ItemTm.getItems().addAll(new ItemTm(id, name, price, supid, warranty, Qty, cat));
+
 
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -211,12 +214,13 @@ public class AddItemController implements Initializable {
                 ItemTm.getSelectionModel().clearSelection();
 
                 new Alert(Alert.AlertType.CONFIRMATION, "Item has deleted!").show();
+                ItemTm.getItems().remove(ItemTm.getSelectionModel().getSelectedItem());
                 loadAllItem();
                 totalItem();
             } else {
                 new Alert(Alert.AlertType.CONFIRMATION, "Item not deleted!").show();
             }
-            ItemTm.getItems().remove(ItemTm.getSelectionModel().getSelectedItem());
+
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

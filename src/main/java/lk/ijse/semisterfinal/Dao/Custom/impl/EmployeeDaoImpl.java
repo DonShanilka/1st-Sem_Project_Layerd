@@ -68,7 +68,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     public AddEmployeeEntity searchEmployee(String id) throws SQLException, ClassNotFoundException {
 
-
         ResultSet resultSet = SqlUtil.test( "SELECT * FROM employee WHERE employee_id = ? ");
 
         if (resultSet.next()){

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface CustomerBo extends SupperBo {
 
-    boolean Add(CusromerDTO dto) throws SQLException, ClassNotFoundException;
+    boolean add(CusromerDTO dto) throws SQLException, ClassNotFoundException;
 
     boolean delete(CusromerDTO id) throws SQLException, ClassNotFoundException;
 

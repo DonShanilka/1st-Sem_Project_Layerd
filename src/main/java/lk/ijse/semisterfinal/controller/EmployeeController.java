@@ -221,7 +221,11 @@ public class EmployeeController implements Initializable {
             ArrayList <AddEmployeeDTO> dtoList = employeeDao.getAll();
 
             for (AddEmployeeDTO e : dtoList) {
-                EmployeeTm.getItems().add(new EmployeeTm(e.getEmployeeId(),e.getEmployeeName(),e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),e.getEmpPosition(),e.getEmail(),e.getGender(),e.getEducation(),e.getBasicSalary(),e.getExpiriance(),e.getDe()));
+                EmployeeTm.getItems().add(new EmployeeTm(
+                        e.getEmployeeId(),e.getEmployeeName(),
+                        e.getEmpAddress(),e.getEmployeePhone(),e.getEmpDate(),
+                        e.getEmpPosition(),e.getEmail(),e.getGender(),e.getEducation(),
+                        e.getBasicSalary(),e.getExpiriance(),e.getDe()));
             }
 
         } catch (SQLException e) {

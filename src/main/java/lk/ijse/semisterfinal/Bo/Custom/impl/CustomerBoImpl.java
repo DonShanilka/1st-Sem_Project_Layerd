@@ -17,7 +17,7 @@ public class CustomerBoImpl implements CustomerBo {
     CustomerDao customerDao = (CustomerDao) DaoFactory.getDaoFactory().getDAO(DaoFactory.DaoTyps.CUSTOMER);
 
     @Override
-    public boolean Add(CusromerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(CusromerDTO dto) throws SQLException, ClassNotFoundException {
         return customerDao.add(new CusromerEntity(dto.getTxtCustId(),dto.getTxtCustAddress(),
                 dto.getTxtCustName(),dto.getTxtCustMobile(),
                 dto.getTxtCustitemId(),dto.getTxtCustPayment()));

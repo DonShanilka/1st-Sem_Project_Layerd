@@ -137,12 +137,9 @@ public class SalaryController implements Initializable {
         String id = comEmpId.getValue();
         try {
             AddEmployeeDTO dto = employeeBo.searchEmployee(id);
-            AtendanceDTO dto1 = salaryBo.getABcount(id);
-            AtendanceDTO dto2 = salaryBo.getPRcount(id);
             lblName.setText(dto.getEmployeeName());
             salary.setText(String.valueOf(dto.getBasicSalary()));
-            absent.setText(dto1.getAbInt());
-            prsent.setText(dto2.getAbInt());
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
@@ -198,7 +195,6 @@ public class SalaryController implements Initializable {
         int etf = Integer.parseInt(txtEtf.getText());
         int prCount = Integer.parseInt(prsent.getText());
         int abcount = Integer.parseInt(absent.getText());
-
 
         double totSalary =  (amount + bonase + (pay1h * otHcount));
         System.out.println(totSalary);

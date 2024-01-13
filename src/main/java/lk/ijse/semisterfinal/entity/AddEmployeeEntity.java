@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Date;
+
 
 @NoArgsConstructor
 @Getter
@@ -66,5 +68,6 @@ public class AddEmployeeEntity {
         this.BasicSalary = bSalary;
 
     }
+
 
 }

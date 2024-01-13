@@ -95,12 +95,12 @@ public class AddCustomerController implements Initializable {
             CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
             boolean isSave= customerBo.update(dto);
             if (isSave){
-
+                CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is Added").show();
                 loadAllCustomer();
                 clearField();
             }
-            CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
+            //CustomerAddTable.getItems().addAll(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -124,8 +124,8 @@ public class AddCustomerController implements Initializable {
                 loadAllCustomer();
                 clearField();
             }
-            CustomerAddTable.getItems().remove(CustomerAddTable.getSelectionModel().getSelectedItem());
-            loadAllCustomer();
+            //CustomerAddTable.getItems().remove(CustomerAddTable.getSelectionModel().getSelectedItem());
+
 
         }catch (SQLException | ClassNotFoundException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -146,14 +146,14 @@ public class AddCustomerController implements Initializable {
             }
 
             CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
-            boolean isSave= customerBo.Add(dto);
+            boolean isSave= customerBo.add(dto);
             if (isSave){
-
+                CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is Added").show();
                 loadAllCustomer();
                 clearField();
             }
-            CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
+
             loadAllCustomer();
 
         } catch (SQLException e) {

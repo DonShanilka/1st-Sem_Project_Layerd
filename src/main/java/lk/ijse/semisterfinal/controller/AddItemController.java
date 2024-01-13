@@ -66,8 +66,6 @@ public class AddItemController implements Initializable {
     public TableColumn <?,?> tmCatogory;
 
     private String[] cata = {"Electrical", "Furniture", "Toys", "Exercise equipment", "Office equipment", "Other"};
-
-    //ItemDao itemDao = new ItemDaoImpl();
     ItemBo itemBo = (ItemBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.ITEM);
     SupplierBo supplierBo = (SupplierBo) BoFactory.getBoFactory().getBo(BoFactory.BoTyps.SUPPLIER);
 

@@ -9,13 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.semisterfinal.Bo.BoFactory;
 import lk.ijse.semisterfinal.Bo.Custom.CustomerBo;
-import lk.ijse.semisterfinal.Bo.Custom.impl.CustomerBoImpl;
-import lk.ijse.semisterfinal.Dao.Custom.AdminLoginDao;
-import lk.ijse.semisterfinal.Dao.DaoFactory;
 import lk.ijse.semisterfinal.dto.Tm.CustomerTm;
 import lk.ijse.semisterfinal.dto.CusromerDTO;
 import org.controlsfx.control.Notifications;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -87,20 +83,20 @@ public class AddCustomerController implements Initializable {
         String custItemid = txtCustitemId.getText();
         String custPayment = txtCustPayment.getText();
 
+        CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
         try {
             if (!validateCustomer()){
                 return;
             }
 
-            CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
             boolean isSave= customerBo.update(dto);
             if (isSave){
-                CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is Added").show();
                 loadAllCustomer();
                 clearField();
             }
-            //CustomerAddTable.getItems().addAll(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
+            CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
+            loadAllCustomer();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -113,19 +109,19 @@ public class AddCustomerController implements Initializable {
     public void CustomerDeleteOnAction(ActionEvent event) {
         String cid = txtCustId.getText();
 
+        CusromerDTO id = new CusromerDTO(cid);
         try{
-            CusromerDTO id = new CusromerDTO(cid);
+
             boolean isDelete = customerBo.delete(id);
 
             if (isDelete){
                 CustomerAddTable.getSelectionModel().clearSelection();
-
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer deleted").show();
                 loadAllCustomer();
                 clearField();
             }
-            //CustomerAddTable.getItems().remove(CustomerAddTable.getSelectionModel().getSelectedItem());
-
+            CustomerAddTable.getItems().remove(CustomerAddTable.getSelectionModel().getSelectedItem());
+            loadAllCustomer();
 
         }catch (SQLException | ClassNotFoundException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -148,7 +144,7 @@ public class AddCustomerController implements Initializable {
             CusromerDTO dto = new CusromerDTO(custId,custAddress,custName,custMobile,custItemid,custPayment);
             boolean isSave= customerBo.add(dto);
             if (isSave){
-                CustomerAddTable.getItems().add(new CustomerTm(custId,custAddress,custName,custMobile,custItemid,custPayment));
+                CustomerAddTable.getItems().addAll(new CustomerTm(custId,custName,custAddress,custMobile,custPayment,custItemid));
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is Added").show();
                 loadAllCustomer();
                 clearField();

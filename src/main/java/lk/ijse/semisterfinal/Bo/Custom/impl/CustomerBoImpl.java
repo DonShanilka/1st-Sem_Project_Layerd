@@ -39,9 +39,8 @@ public class CustomerBoImpl implements CustomerBo {
         ArrayList<CusromerEntity> entities = customerDao.getAll();
         ArrayList<CusromerDTO> dtos = new ArrayList<>();
         for (CusromerEntity dto : entities){
-            dtos.add(new CusromerDTO(dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),
-                    dto.getTxtCustitemId(),
-                    dto.getTxtCustPayment(),dto.getTxtCustId()));
+            dtos.add(new CusromerDTO(dto.getTxtCustId(),dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),
+                    dto.getTxtCustPayment(),dto.getTxtCustitemId()));
         }
         return dtos;
 

@@ -25,13 +25,13 @@ public class CustomerBoImpl implements CustomerBo {
 
     @Override
     public boolean delete(CusromerDTO id) throws SQLException, ClassNotFoundException {
-        return customerDao.delete(new CusromerEntity());
+        return customerDao.delete(new CusromerEntity(id.getTxtCustId()));
     }
 
     @Override
     public boolean update(CusromerDTO dto) throws SQLException, ClassNotFoundException {
-        return customerDao.update(new CusromerEntity(dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),
-                dto.getTxtCustPayment(),dto.getTxtCustId()));
+        return customerDao.update(new CusromerEntity(dto.getTxtCustId(),dto.getTxtCustAddress(),dto.getTxtCustName(),dto.getTxtCustMobile(),dto.getTxtCustitemId(),
+                dto.getTxtCustPayment()));
     }
 
     @Override

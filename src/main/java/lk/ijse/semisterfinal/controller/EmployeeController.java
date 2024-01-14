@@ -147,6 +147,8 @@ public class EmployeeController implements Initializable {
                 loadAllEmployee();
                 clearField();
             }
+            clearField();
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
@@ -183,6 +185,7 @@ public class EmployeeController implements Initializable {
                 loadAllEmployee();
                 clearField();
             }
+            clearField();
 
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -207,6 +210,7 @@ public class EmployeeController implements Initializable {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier not deleted!").show();
             }
             EmployeeTm.getItems().remove(EmployeeTm.getSelectionModel().getSelectedItem());
+            clearField();
 
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

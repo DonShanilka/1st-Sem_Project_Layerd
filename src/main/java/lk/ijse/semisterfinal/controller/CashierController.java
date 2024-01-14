@@ -93,6 +93,17 @@ public class CashierController {
         generateNextOrderId();
         setCellValueFactory();
         //validateCustomer();
+        clearField();
+
+    }
+
+    private void clearField() {
+        lblItemName.setText("");
+        lblQtyOnHand.setText("");
+        lblUnitPrice.setText("");
+        txtDiscount.setText("");
+        txtQty.setText("");
+        cmbCustomerId.setValue("");
 
     }
 
@@ -238,6 +249,7 @@ public class CashierController {
 
         tblOrderCart.setItems(obList);
         calculateTotal();
+        clearField();
     }
 
     private void calculateBalance() {
@@ -317,6 +329,7 @@ public class CashierController {
             throw new RuntimeException(e);
         }
         calculateBalance();
+        clearField();
     }
 
     public void txtDiscountOnAction(ActionEvent event) {

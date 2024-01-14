@@ -68,26 +68,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     public AddEmployeeEntity searchEmployee(String id) throws SQLException, ClassNotFoundException {
 
-        ResultSet resultSet = SqlUtil.test( "SELECT * FROM employee WHERE employee_id = ? ");
+        PreparedStatement pstm = SqlUtil.test("SELECT * FROM employee WHERE employee_id = ? ");
+        pstm.setString(1, id);
+
+        ResultSet resultSet = pstm.executeQuery();
+
+        AddEmployeeEntity dto = null;
 
         if (resultSet.next()){
-            return new AddEmployeeEntity(
-                    resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
-                    Integer.parseInt(String.valueOf(resultSet.getInt(4))),
-                    resultSet.getString(5),
-                    resultSet.getString(6),
-                    resultSet.getString(7),
-                    resultSet.getString(8),
-                    resultSet.getString(9),
-                    resultSet.getDouble(10),
-                    resultSet.getString(11),
-                    resultSet.getString(12)
+            String eid = resultSet.getString(1);
+            String name = resultSet.getString(2);
+            String address = resultSet.getString(3);
+            int mobile = Integer.parseInt(String.valueOf(resultSet.getInt(4)));
+            String date = resultSet.getString(5);
+            String email = resultSet.getString(7);
+            String position = resultSet.getString(6);
+            double bSalary = resultSet.getDouble(10);
 
-            );
+            dto = new AddEmployeeEntity(eid,name,address,mobile,date,email,position,bSalary);
         }
-        return null;
+        return dto;
     }
 
 

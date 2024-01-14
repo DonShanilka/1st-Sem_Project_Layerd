@@ -137,11 +137,11 @@ public class AddItemController implements Initializable {
             if (isaddite) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Add Successful").show();
                 ItemTm.getItems().add(new ItemTm(ItemCode,ItemName,ItemPrice,SupplierId,WarrantyPeriod,qty,cat));
-                loadAllItem();
                 clearField();
                 itemSerachOnAction();
                 totalItem();
             }
+            loadAllItem();
 
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -160,6 +160,7 @@ public class AddItemController implements Initializable {
                 ItemTm.getItems().addAll(new ItemTm(i.getItemCode(),i.getItemDetails(),
                         i.getItemPrice(),i.getSupplierId(),i.getWarrantyPeriod(),
                         i.getItemQty(),i.getCato()));
+
             }
 
         } catch (SQLException | ClassNotFoundException e) {

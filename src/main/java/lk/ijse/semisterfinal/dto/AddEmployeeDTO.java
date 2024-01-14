@@ -65,6 +65,27 @@ public class AddEmployeeDTO implements SuperDto {
 
     }
 
-    public AddEmployeeDTO(String employeeId, String employeeName, String date, String pOra, String anInt, String abInt) {
+    public AddEmployeeDTO(String employeeId, String employeeName,String email,double bSalary) {
+        this.employeeId = employeeId;
+        this.EmployeeName = employeeName;
+        this.email = email;
+        this.BasicSalary = bSalary;
+    }
+
+    public AddEmployeeDTO(String employeeName, String empAddress, int employeePhone, String empDate, String empPosition, String email, String gender, String education, double basicSalary, String expiriance, String de, String employeeId) {
+
+        this.employeeId = employeeId;
+        this.EmployeeName = employeeName;
+        this.EmpAddress = empAddress;
+        this.EmployeePhone = employeePhone;
+        this.empDate = empDate;
+        this.empPosition = empPosition;
+        this.email = email;
+        this.Gender = gender;
+        this.Education = education;
+        this.BasicSalary = basicSalary;
+        this.Expiriance = expiriance;
+        this.de = de;
+
     }
 }

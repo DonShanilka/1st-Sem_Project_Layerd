@@ -14,6 +14,7 @@ public class EmployeeBoImpl implements EmployeeBo {
 
     EmployeeDao employeeDao = (EmployeeDao) DaoFactory.getDaoFactory().getDAO(DaoFactory.DaoTyps.EMPLOYEE);
 
+
     @Override
     public boolean add(AddEmployeeDTO dto) throws SQLException, ClassNotFoundException {
         return employeeDao.add(new AddEmployeeEntity(dto.getEmployeeId(),dto.getEmployeeName(),dto.getEmpAddress(),dto.getEmployeePhone(),
@@ -22,6 +23,7 @@ public class EmployeeBoImpl implements EmployeeBo {
                 dto.getBasicSalary(),dto.getExpiriance(),dto.getDe()));
 
     }
+
 
     @Override
     public ArrayList<AddEmployeeDTO> getAll() throws SQLException, ClassNotFoundException {
@@ -37,21 +39,24 @@ public class EmployeeBoImpl implements EmployeeBo {
 
     }
 
+
     @Override
     public boolean update(AddEmployeeDTO dto) throws SQLException, ClassNotFoundException {
         return employeeDao.update(new AddEmployeeEntity(dto.getEmployeeId(),dto.getEmployeeName(),dto.getEmpAddress(),dto.getEmployeePhone(),dto.getEmpDate(),dto.getEmpPosition(),
                 dto.getEmail(),dto.getGender(),dto.getEducation(),dto.getBasicSalary(),dto.getExpiriance(),dto.getDe()));
     }
 
+
     @Override
     public boolean delete(AddEmployeeDTO id) throws SQLException, ClassNotFoundException {
         return employeeDao.delete(new AddEmployeeEntity(id.getEmployeeId()));
     }
 
+
     @Override
     public AddEmployeeDTO searchEmployee(String id) throws SQLException, ClassNotFoundException {
         AddEmployeeEntity dto = employeeDao.searchEmployee(id);
-        return new AddEmployeeDTO(dto.getEmployeeId(),dto.getEmployeeName(),dto.getEmpAddress(),dto.getEmployeePhone(),dto.getEmpDate(),dto.getEmpPosition(),
-                dto.getEmail(),dto.getGender(),dto.getEducation(),dto.getBasicSalary(),dto.getExpiriance(),dto.getDe());
+        return new AddEmployeeDTO(dto.getEmployeeName(),dto.getEmpAddress(),dto.getEmployeePhone(),dto.getEmpDate(),dto.getEmpPosition(),
+                dto.getEmail(),dto.getGender(),dto.getEducation(),dto.getBasicSalary(),dto.getExpiriance(),dto.getDe(),dto.getEmployeeId());
     }
 }

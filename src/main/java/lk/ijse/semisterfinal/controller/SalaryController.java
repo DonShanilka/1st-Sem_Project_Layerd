@@ -139,9 +139,10 @@ public class SalaryController implements Initializable {
             AddEmployeeDTO dto = employeeBo.searchEmployee(id);
             lblName.setText(dto.getEmployeeName());
             salary.setText(String.valueOf(dto.getBasicSalary()));
+            txtTo.setText(dto.getEmail());
 
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            //new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

@@ -56,7 +56,7 @@ public class EmployeeBoImpl implements EmployeeBo {
     @Override
     public AddEmployeeDTO searchEmployee(String id) throws SQLException, ClassNotFoundException {
         AddEmployeeEntity dto = employeeDao.searchEmployee(id);
-        return new AddEmployeeDTO(dto.getEmployeeName(),dto.getEmpAddress(),dto.getEmployeePhone(),dto.getEmpDate(),dto.getEmpPosition(),
-                dto.getEmail(),dto.getGender(),dto.getEducation(),dto.getBasicSalary(),dto.getExpiriance(),dto.getDe(),dto.getEmployeeId());
+        return new AddEmployeeDTO(dto.getEmployeeId(),dto.getEmployeeName(),
+                dto.getEmail(),dto.getBasicSalary());
     }
 }
